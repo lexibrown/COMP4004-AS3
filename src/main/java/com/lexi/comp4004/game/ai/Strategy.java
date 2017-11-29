@@ -1,5 +1,6 @@
 package com.lexi.comp4004.game.ai;
 
-public class Strategy {
-
+public interface Strategy {
+	public void doStrategy();
+	public String toString();
 }

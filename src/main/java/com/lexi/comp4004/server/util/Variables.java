@@ -1,10 +1,9 @@
 package com.lexi.comp4004.server.util;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Variables {
 
+	public static final String ERROR = "ERROR";
+	
 	public static enum Response {
 		OK(0), UNKNOWN_FAILURE(1), TIMEOUT(2), INVALID_USER(3), INVALID_PASSWORD(4), NO_TIMESTAMP(5), NOT_LOGGED_IN(6);
 
