@@ -1,4 +1,4 @@
-package com.lexi.comp4004.server;
+package com.lexi.comp4004.server.service;
 
 import java.util.HashSet;
 import java.util.Set;
