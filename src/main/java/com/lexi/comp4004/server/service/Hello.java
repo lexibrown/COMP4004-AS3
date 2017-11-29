@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 // Plain old Java Object it does not extend as class or implements 
@@ -53,6 +57,36 @@ public class Hello {
 	public String index() {
 		return getFile("index.html");
 	}
+	
+	@Context private HttpServletRequest request;
+
+	@POST
+	@Path("/authenticate")
+	public String authenticate(@FormParam("username") String username, 
+	        @FormParam("password") String password) {
+
+	    // Implementation of your authentication logic
+	    if (authenticate(username, password)) {
+	        request.getSession(true);
+	        // Set the session attributes as you wish
+	    }
+	}
+	
+	@GET
+    @Produces("text/plain")
+    public void hello(@Context HttpServletRequest req) {
+
+        HttpSession session= req.getSession(true);
+        Object foo = session.getAttribute("foo");
+        if (foo!=null) {
+            System.out.println(foo.toString());
+        } else {
+            foo = "bar";
+            session.setAttribute("foo", "bar");
+        }
+        session.getSessionContext().
+
+    }
 
 	private String getFile(String fileName) {
 		StringBuilder result = new StringBuilder("");
