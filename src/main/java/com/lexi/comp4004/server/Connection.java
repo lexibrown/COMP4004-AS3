@@ -17,7 +17,7 @@ import com.lexi.comp3601.data.Notification;
 import com.lexi.comp3601.utils.JsonUtil;
 import com.lexi.comp3601.utils.NotificationDatabaseUtil;
 import com.lexi.comp3601.utils.TokenUtil;
-import com.lexi.comp3601.utils.Variables.Response;
+import com.lexi.comp4004.server.util.Response;
 
 @ServerEndpoint("/notification")
 public class Connection {
