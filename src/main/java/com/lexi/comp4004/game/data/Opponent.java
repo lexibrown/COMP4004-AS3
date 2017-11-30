@@ -20,6 +20,12 @@ public class Opponent {
 		this.numCards = 0;
 		this.visibleCards = new ArrayList<Card>();
 	}
+	
+	public Opponent(Player player) {
+		this.name = player.getName();
+		this.numCards = player.getCards().size();
+		this.visibleCards = player.getVisibleCards();
+	}
 
 	public String getName() {
 		return name;

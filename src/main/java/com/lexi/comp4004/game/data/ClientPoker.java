@@ -44,5 +44,9 @@ public class ClientPoker {
 	public void setOpponents(List<Opponent> opponents) {
 		this.opponents = opponents;
 	}
+	
+	public void addOpponent(Opponent opponent) {
+		this.opponents.add(opponent);
+	}
 
 }

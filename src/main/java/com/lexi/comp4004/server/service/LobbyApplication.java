@@ -47,6 +47,71 @@ public class LobbyApplication implements Application {
 		}
 	}
 	
+	@POST
+	@Path(STATUS)
+	public String lobbyStatus(HashMap<String, Object> params) {
+		try {
+			if (!params.containsKey(TOKEN)) {
+				return JsonUtil.errorJson(SERVICE + "-2000", "No token provided.");
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
+				return JsonUtil.errorJson(SERVICE + "-2001", "Invalid token.");
+			}			
+			return JsonUtil.makeJson(STATUS, Lobby.getInstance().isGameInSession());
+		} catch (Exception e) {
+			return JsonUtil.fail(e);
+		}
+	}
+	
+
+	
+	@POST
+	@Path(SETUPGAME)
+	public String setupGame(HashMap<String, Object> params) {
+		try {
+			if (!params.containsKey(TOKEN)) {
+				return JsonUtil.errorJson(SERVICE + "-3000", "No token provided.");
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
+				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
+			}
+			//TODO
+			return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
+		} catch (Exception e) {
+			return JsonUtil.fail(e);
+		}
+	}
+	
+	@POST
+	@Path(JOINGAME)
+	public String joinGame(HashMap<String, Object> params) {
+		try {
+			if (!params.containsKey(TOKEN)) {
+				return JsonUtil.errorJson(SERVICE + "-4000", "No token provided.");
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
+				return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
+			}
+			//TODO
+			return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
+		} catch (Exception e) {
+			return JsonUtil.fail(e);
+		}
+	}
+
+	@POST
+	@Path(STARTGAME)
+	public String startGame(HashMap<String, Object> params) {
+		try {
+			if (!params.containsKey(TOKEN)) {
+				return JsonUtil.errorJson(SERVICE + "-5000", "No token provided.");
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
+				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
+			}
+			//TODO
+			return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
+		} catch (Exception e) {
+			return JsonUtil.fail(e);
+		}
+	}
+	
 	/*
 	@GET
 	@Path(USERS)
@@ -75,24 +140,7 @@ public class LobbyApplication implements Application {
 			return JsonUtil.fail(e);
 		}
 	}
-	*/
 	
-	@POST
-	@Path(STATUS)
-	public String lobbyStatus(HashMap<String, Object> params) {
-		try {
-			if (!params.containsKey(TOKEN)) {
-				return JsonUtil.errorJson(SERVICE + "-2000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
-				return JsonUtil.errorJson(SERVICE + "-2001", "Invalid token.");
-			}			
-			return JsonUtil.makeJson(STATUS, Lobby.getInstance().isGameInSession());
-		} catch (Exception e) {
-			return JsonUtil.fail(e);
-		}
-	}
-	
-	/*
 	@GET
 	@Path(STATUS)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -112,37 +160,5 @@ public class LobbyApplication implements Application {
 		}
 	}
 	*/
-	
-	@POST
-	@Path(SETUPGAME)
-	public String setupGame(HashMap<String, Object> params) {
-		try {
-			if (!params.containsKey(TOKEN)) {
-				return JsonUtil.errorJson(SERVICE + "-3000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
-				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
-			}
-			//TODO
-			return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
-		} catch (Exception e) {
-			return JsonUtil.fail(e);
-		}
-	}
-	
-	@POST
-	@Path(STARTGAME)
-	public String startGame(HashMap<String, Object> params) {
-		try {
-			if (!params.containsKey(TOKEN)) {
-				return JsonUtil.errorJson(SERVICE + "-4000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
-				return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
-			}
-			//TODO
-			return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
-		} catch (Exception e) {
-			return JsonUtil.fail(e);
-		}
-	}
 	
 }
