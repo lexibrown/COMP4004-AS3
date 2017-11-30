@@ -7,7 +7,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.lexi.comp4004.server.Lobby;
@@ -34,14 +33,13 @@ public class LobbyApplication implements Application {
 		return "Lobby service.";
 	}
 	
-	@GET
+	@POST
 	@Path(USERS)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String getUsers(@QueryParam(TOKEN) String token) {
+	public String getUsers(HashMap<String, Object> params) {
 		try {
-			if (token.isEmpty()) {
+			if (!params.containsKey(TOKEN)) {
 				return JsonUtil.errorJson(SERVICE + "-1000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(token)) {
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-1001", "Invalid token.");
 			}
 			return JsonUtil.makeJson(LOBBY, JsonUtil.stringify(Lobby.getInstance().getUsers()));
@@ -83,11 +81,11 @@ public class LobbyApplication implements Application {
 	@GET
 	@Path(STATUS)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String lobbyStatus(@QueryParam(TOKEN) String token) {
+	public String lobbyStatus(HashMap<String, Object> params) {
 		try {
-			if (token.isEmpty()) {
+			if (!params.containsKey(TOKEN)) {
 				return JsonUtil.errorJson(SERVICE + "-2000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(token)) {
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-2001", "Invalid token.");
 			}			
 			return JsonUtil.makeJson(STATUS, Lobby.getInstance().isGameInSession());
@@ -119,11 +117,11 @@ public class LobbyApplication implements Application {
 	
 	@POST
 	@Path(SETUPGAME)
-	public String setupGame(HashMap<String, Object> params, @QueryParam(TOKEN) String token) {
+	public String setupGame(HashMap<String, Object> params) {
 		try {
-			if (token.isEmpty()) {
+			if (!params.containsKey(TOKEN)) {
 				return JsonUtil.errorJson(SERVICE + "-3000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(token)) {
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
 			}
 			//TODO
@@ -136,11 +134,11 @@ public class LobbyApplication implements Application {
 	@GET
 	@Path(STARTGAME)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String startGame(@QueryParam(TOKEN) String token) {
+	public String startGame(HashMap<String, Object> params) {
 		try {
-			if (token.isEmpty()) {
+			if (!params.containsKey(TOKEN)) {
 				return JsonUtil.errorJson(SERVICE + "-4000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(token)) {
+			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
 			}
 			//TODO
