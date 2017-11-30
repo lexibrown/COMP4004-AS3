@@ -16,6 +16,7 @@ public class StartApplication extends Application {
 		classes.add(Hello.class);
 		
 		classes.add(ConnectApplication.class);
+		classes.add(DisconnectApplication.class);
 		classes.add(LobbyApplication.class);
 		classes.add(GameApplication.class);
 		

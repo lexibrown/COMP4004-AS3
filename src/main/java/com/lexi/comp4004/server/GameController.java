@@ -1,4 +1,4 @@
-package com.lexi.comp4004.server.util;
+package com.lexi.comp4004.server;
 
 import com.lexi.comp4004.game.Poker;
 

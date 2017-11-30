@@ -16,9 +16,6 @@ public class ConnectApplication implements Application {
 
 	public static final String SERVICE = "CONT";
 
-	public static final String CONNECT = "connect";
-	public static final String DISCONNECT = "disconnect";
-
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String defaultEndpoint() {
@@ -38,26 +35,6 @@ public class ConnectApplication implements Application {
 				return JsonUtil.errorJson(SERVICE + "-1001", "Username is already in use.");
 			}
 			return JsonUtil.makeJson(TOKEN, token);
-		} catch (Exception e) {
-			return JsonUtil.fail(e);
-		}
-	}
-
-	@GET
-	@Path(DISCONNECT)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String disconnect(@QueryParam(TOKEN) String token) {
-		try {
-			if (token.isEmpty()) {
-				return JsonUtil.errorJson(SERVICE + "-2000", "No token provided.");
-			} else if (!Lobby.getInstance().verifyUser(token)) {
-				return JsonUtil.errorJson(SERVICE + "-2001", "Invalid token.");
-			}
-
-			if (Lobby.getInstance().removeUser(token)) {
-				return JsonUtil.makeMessage("Successfully disconnected.");
-			}
-			return JsonUtil.errorJson(SERVICE + "-2001", "Invalid token.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
