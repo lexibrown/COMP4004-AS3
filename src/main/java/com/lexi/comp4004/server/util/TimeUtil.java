@@ -16,13 +16,6 @@ public class TimeUtil {
 		return sdf.format(Calendar.getInstance(TimeZone.getDefault()).getTime());
 	}
 	
-	public static boolean timeout(String timestamp) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-		Date nowDate = sdf.parse(now());
-		Date timestampDate = sdf.parse(timestamp);
-		return TimeUnit.MILLISECONDS.toSeconds(nowDate.getTime() - timestampDate.getTime()) >= Variables.TIMEOUT_TIME;			
-	}
-	
 	public static boolean newer(String timestamp1, String timestamp2) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		Date date1 = sdf.parse(timestamp1);

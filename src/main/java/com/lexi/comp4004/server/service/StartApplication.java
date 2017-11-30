@@ -14,6 +14,13 @@ public class StartApplication extends Application {
 		// register root resource
 		
 		classes.add(Hello.class);
+		
+		classes.add(ConnectApplication.class);
+		classes.add(LobbyApplication.class);
+		classes.add(GameApplication.class);
+		
+		classes.add(DevApplication.class);
+		
 		return classes;
 	}
 }

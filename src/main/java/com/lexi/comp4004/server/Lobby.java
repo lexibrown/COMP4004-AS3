@@ -2,9 +2,9 @@ package com.lexi.comp4004.server;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.lexi.comp4004.encrypt.Token;
+import com.lexi.comp4004.server.util.GameController;
 import com.lexi.comp4004.server.util.TokenUtil;
 
 public class Lobby {
@@ -24,6 +24,10 @@ public class Lobby {
 		return instance;
 	}
 	
+	public boolean verifyUser(String token) {
+		return TokenUtil.verify(token, getUsers());
+	}
+	
 	public boolean userExists(String username) {
 		for (Token t : activeUsers) {
 			if (username.equals(t.getUserid())) {
@@ -38,7 +42,8 @@ public class Lobby {
 			return null;
 		}
 		
-		Token t = TokenUtil.constuctToken(username);				
+		Token t = TokenUtil.constuctToken(username);
+		Connection.broadcastLobby(getUsers());
 		return TokenUtil.encryt(t);
 	}
 	
@@ -47,6 +52,7 @@ public class Lobby {
 		for (Token t : activeUsers) {
 			if (username.equals(t.getUserid())) {
 				activeUsers.remove(t);
+				Connection.broadcastLobby(getUsers());
 				return true;
 			}
 		}
@@ -57,6 +63,7 @@ public class Lobby {
 		for (Token t : activeUsers) {
 			if (username.equals(t.getUserid())) {
 				activeUsers.remove(t);
+				Connection.broadcastLobby(getUsers());
 				return true;
 			}
 		}
@@ -72,14 +79,7 @@ public class Lobby {
 	}
 
 	public boolean isGameInSession() {
-		// TODO Auto-generated method stub
-		return false;
+		return GameController.getInstance().isGameStarted();
 	}
-
-	public Map<String, Object> getStatus() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 }

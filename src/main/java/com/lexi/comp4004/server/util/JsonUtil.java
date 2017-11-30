@@ -13,7 +13,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class JsonUtil {
 
-	private static final String MESSAGE = "message";
+	public static final String ERROR = "ERROR";
+	public static final String MESSAGE = "MESSAGE";
 
 	static final ObjectMapper objectMapper = new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
 			.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
@@ -54,7 +55,7 @@ public class JsonUtil {
 
 	public static String errorJson(String type, String message) throws Exception {
 		HashMap<String, String> error = new HashMap<String, String>();
-		error.put(Variables.ERROR, type);
+		error.put(ERROR, type);
 		error.put(MESSAGE, message);
 		return stringify(error);
 	}

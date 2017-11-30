@@ -12,31 +12,27 @@ import com.lexi.comp4004.server.util.JsonUtil;
 
 @Path("/connect")
 @Produces(MediaType.APPLICATION_JSON)
-public class ConnectApplication {
+public class ConnectApplication implements Application {
 
 	public static final String SERVICE = "CONT";
-	
+
 	public static final String CONNECT = "connect";
 	public static final String DISCONNECT = "disconnect";
-	
-	public static final String USERID = "userid";
-	public static final String TOKEN = "token";
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String defaultEndpoint() {
 		return "Connection service.";
 	}
-	
+
 	@GET
-	@Path(CONNECT)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String connect(@QueryParam(USERID) String userid) {
 		try {
 			if (userid.isEmpty()) {
 				return JsonUtil.errorJson(SERVICE + "-1000", "No username provided.");
 			}
-			
+
 			String token = Lobby.getInstance().addUser(userid);
 			if (token == null) {
 				return JsonUtil.errorJson(SERVICE + "-1001", "Username is already in use.");
@@ -46,7 +42,7 @@ public class ConnectApplication {
 			return JsonUtil.fail(e);
 		}
 	}
-	
+
 	@GET
 	@Path(DISCONNECT)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -54,15 +50,17 @@ public class ConnectApplication {
 		try {
 			if (token.isEmpty()) {
 				return JsonUtil.errorJson(SERVICE + "-2000", "No token provided.");
+			} else if (!Lobby.getInstance().verifyUser(token)) {
+				return JsonUtil.errorJson(SERVICE + "-2001", "Invalid token.");
 			}
 
 			if (Lobby.getInstance().removeUser(token)) {
-				return JsonUtil.makeMessage("Successfully disconnected.");	
+				return JsonUtil.makeMessage("Successfully disconnected.");
 			}
 			return JsonUtil.errorJson(SERVICE + "-2001", "Invalid token.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
 	}
-	
+
 }
