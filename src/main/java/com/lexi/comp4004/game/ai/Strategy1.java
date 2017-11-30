@@ -1,6 +1,6 @@
 package com.lexi.comp4004.game.ai;
 
-public class Strategy1 implements Strategy {
+public class Strategy1 extends Strategy {
 
 	public void doStrategy() {
 		// TODO

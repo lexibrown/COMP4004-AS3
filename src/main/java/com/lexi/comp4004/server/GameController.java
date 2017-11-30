@@ -7,7 +7,8 @@ public class GameController {
 	private static GameController instance;
 	
 	private Poker game;
-
+	private boolean gameStarted = false;
+	
 	private GameController() {
 		game = new Poker();
 	}
@@ -27,9 +28,19 @@ public class GameController {
 		return game;
 	}
 
+	
+	public void startGame() {
+		gameStarted = true;
+		
+	}
+	
+	public void reset() {
+		gameStarted = false;
+		game = new Poker();
+	}
+	
 	public boolean isGameStarted() {
-		// TODO Auto-generated method stub
-		return false;
+		return gameStarted;
 	}
 	
 }

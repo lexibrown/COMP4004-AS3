@@ -78,9 +78,8 @@ public class LobbyApplication implements Application {
 	}
 	*/
 	
-	@GET
+	@POST
 	@Path(STATUS)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String lobbyStatus(HashMap<String, Object> params) {
 		try {
 			if (!params.containsKey(TOKEN)) {
@@ -131,9 +130,8 @@ public class LobbyApplication implements Application {
 		}
 	}
 	
-	@GET
+	@POST
 	@Path(STARTGAME)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String startGame(HashMap<String, Object> params) {
 		try {
 			if (!params.containsKey(TOKEN)) {

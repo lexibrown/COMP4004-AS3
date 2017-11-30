@@ -6,11 +6,19 @@ import java.util.List;
 public class Player {
 
 	private String name;
-	private List<Card> hiddenCards = new ArrayList<Card>();
-	private List<Card> visibleCards = new ArrayList<Card>();
+	private List<Card> hiddenCards;
+	private List<Card> visibleCards;
+	
+	public Player() {
+		this.name = null;
+		 hiddenCards = null;
+		 visibleCards = null;
+	}	
 	
 	public Player(String name) {
 		this.name = name;
+		 hiddenCards = new ArrayList<Card>();
+		 visibleCards = new ArrayList<Card>();
 	}
 
 	public String getName() {

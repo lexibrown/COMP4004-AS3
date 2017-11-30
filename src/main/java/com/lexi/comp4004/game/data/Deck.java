@@ -47,6 +47,10 @@ public class Deck {
 	public int size() {
 		return deck.size();
 	}
+	
+	public boolean empty() {
+		return deck.size() == 0;
+	}
 
 	public void clear() {
 		deck.clear();

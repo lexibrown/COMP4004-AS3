@@ -1,6 +1,6 @@
 package com.lexi.comp4004.game.ai;
 
-public interface Strategy {
-	public void doStrategy();
-	public String toString();
+public abstract class Strategy {
+	public abstract void doStrategy();
+	public abstract String toString();
 }
