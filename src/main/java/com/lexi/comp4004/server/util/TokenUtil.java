@@ -2,8 +2,8 @@ package com.lexi.comp4004.server.util;
 
 import java.util.List;
 
-import com.lexi.comp4004.encrypt.AESEncrypter;
-import com.lexi.comp4004.encrypt.Token;
+import com.lexi.comp4004.server.encrypt.AESEncrypter;
+import com.lexi.comp4004.server.encrypt.Token;
 
 public class TokenUtil {
 

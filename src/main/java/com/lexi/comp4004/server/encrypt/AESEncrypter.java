@@ -1,4 +1,4 @@
-package com.lexi.comp4004.encrypt;
+package com.lexi.comp4004.server.encrypt;
 
 import java.security.Key;
 import java.util.Base64;

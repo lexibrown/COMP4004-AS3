@@ -3,7 +3,7 @@ package com.lexi.comp4004.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lexi.comp4004.encrypt.Token;
+import com.lexi.comp4004.server.encrypt.Token;
 import com.lexi.comp4004.server.util.TokenUtil;
 
 public class Lobby {
