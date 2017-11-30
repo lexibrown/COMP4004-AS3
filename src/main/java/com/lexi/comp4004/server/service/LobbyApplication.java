@@ -2,7 +2,6 @@ package com.lexi.comp4004.server.service;
 
 import java.util.HashMap;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
