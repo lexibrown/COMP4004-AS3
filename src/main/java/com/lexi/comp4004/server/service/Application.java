@@ -9,6 +9,6 @@ public interface Application {
 	public static final String TOKEN = "token";
 	public static final String USERID = "userid";
 	public static final String GAME = "game";
-
+	public static final String SETUP = "setup";
 
 }

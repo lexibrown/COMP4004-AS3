@@ -15,8 +15,8 @@ public class AIPlayer extends Player {
 		return false;
 	}
 	
-	public String getStrategy() {
-		return strategy.toString();
+	public Strategy getStrategy() {
+		return strategy;
 	}
 	
 	public void setStrategy(Strategy strategy) {

@@ -8,7 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.Lobby;
+import com.lexi.comp4004.server.template.SetUp;
 import com.lexi.comp4004.server.util.JsonUtil;
 
 @Path("/lobby")
@@ -62,8 +64,6 @@ public class LobbyApplication implements Application {
 		}
 	}
 	
-
-	
 	@POST
 	@Path(SETUPGAME)
 	public String setupGame(HashMap<String, Object> params) {
@@ -73,8 +73,14 @@ public class LobbyApplication implements Application {
 			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
 			}
-			//TODO
-			return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
+			
+			SetUp setup = (SetUp) params.get(SETUP);
+			if (setup == null) {
+				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid parameters.");
+			}
+
+			GameController.getInstance().setUpGame(setup);
+			return JsonUtil.makeMessage("Successfully set up game.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}

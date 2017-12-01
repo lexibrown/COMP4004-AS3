@@ -11,6 +11,7 @@ public class Poker {
 	private Deck deck;
 	private List<Player> players;
 	private int currentTurn = 0;
+	private int maxNumPlayers = 2;
 	
 	public Poker() {
 		deck = new Deck();
@@ -31,13 +32,37 @@ public class Poker {
 		}
 		return null;
 	}
+	
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public boolean addPlayer(String name) {
+		return addPlayer(new Player(name));
+	}
+	
+	public boolean addPlayer(Player player) {
+		if (isFull()) {
+			return false;
+		}
+		players.add(player);
+		return true;
+	}
 
 	public Deck getDeck() {
 		return deck;
 	}
 
-	public List<Player> getPlayers() {
-		return players;
+	public int getMaxNumPlayers() {
+		return maxNumPlayers;
+	}
+
+	public void setMaxNumPlayers(int maxNumPlayers) {
+		this.maxNumPlayers = maxNumPlayers;
+	}
+	
+	public boolean isFull() {
+		return players.size() == maxNumPlayers;
 	}
 	
 }

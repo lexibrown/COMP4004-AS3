@@ -1,6 +1,7 @@
 package com.lexi.comp4004.server;
 
 import com.lexi.comp4004.game.Poker;
+import com.lexi.comp4004.server.template.SetUp;
 
 public class GameController {
 
@@ -20,8 +21,12 @@ public class GameController {
 		return instance;
 	}
 	
+	public void setUpGame(SetUp setup) {
+		setGame(setup.setUpGame(getGame()));
+	}
+	
 	public void setGame(Poker p) {
-		game = p;
+		this.game = p;
 	}
 	
 	public Poker getGame() {
