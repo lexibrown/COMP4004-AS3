@@ -1,9 +1,9 @@
-package com.lexi.comp4004.game.util;
+package com.lexi.comp4004.common.game.util;
 
-import com.lexi.comp4004.game.Poker;
-import com.lexi.comp4004.game.data.ClientPoker;
-import com.lexi.comp4004.game.data.Opponent;
-import com.lexi.comp4004.game.data.Player;
+import com.lexi.comp4004.common.game.Poker;
+import com.lexi.comp4004.common.game.data.ClientPoker;
+import com.lexi.comp4004.common.game.data.Opponent;
+import com.lexi.comp4004.common.game.data.Player;
 
 public class GameConverter {
 

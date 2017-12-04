@@ -8,9 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.lexi.comp4004.common.template.SetUp;
 import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.Lobby;
-import com.lexi.comp4004.server.template.SetUp;
 import com.lexi.comp4004.server.util.JsonUtil;
 
 @Path("/lobby")
@@ -79,7 +79,7 @@ public class LobbyApplication implements Application {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid parameters.");
 			}
 
-			GameController.getInstance().setUpGame(setup);
+			GameController.getInstance().setUpGame(params.get(TOKEN).toString(), setup);
 			return JsonUtil.makeMessage("Successfully set up game.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
@@ -95,8 +95,10 @@ public class LobbyApplication implements Application {
 			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
 			}
-			//TODO
-			return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
+			if (GameController.getInstance().joinGame(params.get(TOKEN).toString())) {
+				return JsonUtil.makeMessage("Successfully joined game.");
+			}
+			return JsonUtil.errorJson(SERVICE + "-4002", "Game is full. Please wait for an available spot.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
@@ -111,8 +113,10 @@ public class LobbyApplication implements Application {
 			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
 			}
-			//TODO
-			return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
+			if (GameController.getInstance().startGame(params.get(TOKEN).toString())) {
+				return JsonUtil.makeMessage("Successfully started game.");
+			}
+			return JsonUtil.errorJson(SERVICE + "-5002", "Failed to start game. Please ensure enough players have joined and you are a part of the game.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}

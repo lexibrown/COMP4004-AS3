@@ -1,15 +1,15 @@
-package com.lexi.comp4004.server.template;
+package com.lexi.comp4004.common.template;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lexi.comp4004.game.Poker;
-import com.lexi.comp4004.game.ai.AIPlayer;
-import com.lexi.comp4004.game.ai.Strategy1;
-import com.lexi.comp4004.game.ai.Strategy2;
-import com.lexi.comp4004.game.data.Card;
+import com.lexi.comp4004.common.game.Poker;
+import com.lexi.comp4004.common.game.ai.AIPlayer;
+import com.lexi.comp4004.common.game.ai.Strategy1;
+import com.lexi.comp4004.common.game.ai.Strategy2;
+import com.lexi.comp4004.common.game.data.Card;
 
 public class DevSetUp extends SetUp {
 

@@ -8,9 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.lexi.comp4004.common.template.SetUp;
 import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.Lobby;
-import com.lexi.comp4004.server.template.SetUp;
 import com.lexi.comp4004.server.util.JsonUtil;
 import com.lexi.comp4004.server.util.TokenUtil;
 import com.lexi.comp4004.server.util.Variables;
@@ -25,6 +25,7 @@ public class DevApplication implements Application {
 	public static final String DEV = "dev";
 	public static final String ADMIN = "admin";
 	public static final String PASSWORD = "password";
+	public static final String ADMIN_TOKEN = "admin_token";
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -44,7 +45,7 @@ public class DevApplication implements Application {
 			}
 
 			if (Variables.ADMIN.equals(params.get(ADMIN)) && Variables.ADMIN_PASSWORD.equals(params.get(PASSWORD))) {
-				return JsonUtil.makeJson(TOKEN, TokenUtil.encypt(Variables.ADMIN, Variables.ADMIN_PASSWORD));
+				return JsonUtil.makeJson(ADMIN_TOKEN, TokenUtil.encypt(Variables.ADMIN, Variables.ADMIN_PASSWORD));
 			}
 			return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
 		} catch (Exception e) {
@@ -62,6 +63,10 @@ public class DevApplication implements Application {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
 			} else if (!params.containsKey(SETUP)) {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
+			} else if (!params.containsKey(ADMIN_TOKEN)) {
+				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
+			} else if (!verifyAdminToken(params.get(ADMIN_TOKEN).toString())) {
+				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");				
 			}
 
 			SetUp setup = (SetUp) params.get(SETUP);
@@ -69,11 +74,17 @@ public class DevApplication implements Application {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
 			}
 
-			GameController.getInstance().setUpGame(setup);
+			GameController.getInstance().setUpGame(params.get(TOKEN).toString(), setup);
 			return JsonUtil.makeMessage("Successfully set up game.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
+	}
+	
+	private boolean verifyAdminToken(String token) {
+		String admin = TokenUtil.pullUsername(token);
+		String password = TokenUtil.pullPassowrd(token);
+		return Variables.ADMIN.equals(admin) && Variables.ADMIN_PASSWORD.equals(password);
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.lexi.comp4004.server;
 
-import com.lexi.comp4004.game.Poker;
-import com.lexi.comp4004.server.template.SetUp;
+import com.lexi.comp4004.common.game.Poker;
+import com.lexi.comp4004.common.template.SetUp;
 
 public class GameController {
 
@@ -21,8 +21,9 @@ public class GameController {
 		return instance;
 	}
 	
-	public void setUpGame(SetUp setup) {
+	public void setUpGame(String token, SetUp setup) {
 		setGame(setup.setUpGame(getGame()));
+		
 	}
 	
 	public void setGame(Poker p) {
@@ -46,6 +47,16 @@ public class GameController {
 	
 	public boolean isGameStarted() {
 		return gameStarted;
+	}
+
+	public boolean joinGame(String string) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean startGame(String string) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

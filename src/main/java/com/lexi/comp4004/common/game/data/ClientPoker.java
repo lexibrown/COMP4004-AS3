@@ -1,4 +1,4 @@
-package com.lexi.comp4004.game.data;
+package com.lexi.comp4004.common.game.data;
 
 import java.util.List;
 import java.util.ArrayList;

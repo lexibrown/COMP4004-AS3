@@ -56,4 +56,12 @@ public class TokenUtil {
 		}
 	}
 
+	public static String pullPassowrd(String token) {
+		try {
+			return AESEncrypter.decrypt(token).split(AESEncrypter.DELIMITER)[1];
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 }

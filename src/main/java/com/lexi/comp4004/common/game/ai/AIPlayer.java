@@ -1,6 +1,6 @@
-package com.lexi.comp4004.game.ai;
+package com.lexi.comp4004.common.game.ai;
 
-import com.lexi.comp4004.game.data.Player;
+import com.lexi.comp4004.common.game.data.Player;
 
 public class AIPlayer extends Player {
 

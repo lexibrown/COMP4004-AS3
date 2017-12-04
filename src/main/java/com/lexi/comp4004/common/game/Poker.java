@@ -1,10 +1,10 @@
-package com.lexi.comp4004.game;
+package com.lexi.comp4004.common.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lexi.comp4004.game.data.Deck;
-import com.lexi.comp4004.game.data.Player;
+import com.lexi.comp4004.common.game.data.Deck;
+import com.lexi.comp4004.common.game.data.Player;
 
 public class Poker {
 
