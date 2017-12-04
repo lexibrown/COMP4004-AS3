@@ -27,6 +27,10 @@ public class GameConverter {
 			client.addOpponent(new Opponent(p));
 		}
 		
+		if (game.whoseTurn().equals(player)) {
+			client.setTurn(true);
+		}
+		
 		return client;
 	}
 	

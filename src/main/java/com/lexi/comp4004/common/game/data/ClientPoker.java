@@ -9,16 +9,20 @@ public class ClientPoker {
 	private Player player;
 	private List<Opponent> opponents;
 	
+	private boolean isTurn = false;
+	
 	public ClientPoker() {
 		numCardInDeck = 0;
 		player = null;
 		opponents = new ArrayList<Opponent>();
+		setTurn(false);
 	}
 	
 	public ClientPoker(Player player) {
 		numCardInDeck = 0;
 		this.player = player;
 		opponents = new ArrayList<Opponent>();
+		setTurn(false);
 	}
 
 	public int getNumCardInDeck() {
@@ -49,4 +53,12 @@ public class ClientPoker {
 		this.opponents.add(opponent);
 	}
 
+	public boolean isTurn() {
+		return isTurn;
+	}
+
+	public void setTurn(boolean isTurn) {
+		this.isTurn = isTurn;
+	}
+	
 }

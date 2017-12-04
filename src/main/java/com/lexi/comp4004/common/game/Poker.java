@@ -5,23 +5,27 @@ import java.util.List;
 
 import com.lexi.comp4004.common.game.data.Deck;
 import com.lexi.comp4004.common.game.data.Player;
+import com.lexi.comp4004.common.game.util.Config;
 
 public class Poker {
 
 	private Deck deck;
 	private List<Player> players;
-	private int currentTurn = 0;
+	private int currentTurn = 1;
 	private int maxNumPlayers = 2;
 	
 	public Poker() {
 		deck = new Deck();
 		deck.createDeckOfCards();
 		players = new ArrayList<Player>();
-		currentTurn = 0;
+		currentTurn = 1;
 	}
 	
 	public Player whoseTurn() {
-		return players.get(currentTurn);
+		if (players.size() < currentTurn) {
+			return null;
+		}
+		return players.get(currentTurn - 1);
 	}
 
 	public Player getPlayer(String name) {
@@ -35,6 +39,10 @@ public class Poker {
 	
 	public List<Player> getPlayers() {
 		return players;
+	}
+	
+	public void setPlayers(List<Player> players) {
+		this.players = players;
 	}
 
 	public boolean addPlayer(String name) {
@@ -63,6 +71,18 @@ public class Poker {
 	
 	public boolean isFull() {
 		return players.size() == maxNumPlayers;
+	}
+
+	public void dealCards() {
+		for (int i = 0; i < Config.MAX_CARDS; i++) {
+			for (Player p : players) {
+				p.receiveCard(deck.deal());
+			}
+		}
+	}
+
+	public void nextTurn() {
+		currentTurn++;
 	}
 	
 }

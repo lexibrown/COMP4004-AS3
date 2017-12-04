@@ -1,8 +1,10 @@
 package com.lexi.comp4004.common.game.strategy;
 
+import com.lexi.comp4004.common.game.data.ClientPoker;
+
 public class Strategy2 extends Strategy {
 
-	public void doStrategy() {
+	public void doStrategy(ClientPoker poker) {
 		// TODO
 	}
 	

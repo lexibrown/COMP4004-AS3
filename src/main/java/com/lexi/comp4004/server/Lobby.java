@@ -70,6 +70,10 @@ public class Lobby {
 		return false;
 	}
 	
+	public String getUser(String token) {
+		return TokenUtil.pullUsername(token);
+	}
+	
 	public List<String> getUsers() {
 		List<String> users = new ArrayList<String>();
 		for (Token t : activeUsers) {

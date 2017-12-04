@@ -78,6 +78,10 @@ public class Player {
 		this.strategy = strategy;
 	}
 	
+	public void play(ClientPoker poker) {
+		strategy.doStrategy(poker);
+	}
+	
 	public boolean equals(Object other) {
 		if (!other.getClass().equals(Player.class)) {
 			return false;
