@@ -13,7 +13,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.lexi.comp4004.common.game.data.ClientPoker;
-import com.lexi.comp4004.common.game.data.Results;
+import com.lexi.comp4004.common.game.data.Result;
 import com.lexi.comp4004.server.util.JsonUtil;
 import com.lexi.comp4004.server.util.TokenUtil;
 
@@ -92,7 +92,7 @@ public class Connection {
 		}
 	}
 
-	public static void broadcastEndGame(String user, Results results) {
+	public static void broadcastEndGame(String user, Result results) {
 		try {
 			sendMessage(user, JsonUtil.makeJson(RESULTS, results));
 		} catch (Exception e) {

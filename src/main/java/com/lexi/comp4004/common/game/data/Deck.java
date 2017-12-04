@@ -43,6 +43,10 @@ public class Deck {
 	public void addCard(Card card) {
 		deck.add(card);
 	}
+	
+	public List<Card> getCards() {
+		return deck;
+	}
 
 	public int size() {
 		return deck.size();

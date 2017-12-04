@@ -9,7 +9,7 @@ import com.lexi.comp4004.common.game.data.AIPlayer;
 import com.lexi.comp4004.common.game.data.Card;
 import com.lexi.comp4004.common.game.data.ClientPoker;
 import com.lexi.comp4004.common.game.data.Player;
-import com.lexi.comp4004.common.game.data.Results;
+import com.lexi.comp4004.common.game.data.Result;
 import com.lexi.comp4004.common.game.util.GameUtil;
 import com.lexi.comp4004.common.template.SetUp;
 import com.lexi.comp4004.server.util.Variables;
@@ -183,7 +183,7 @@ public class GameController {
 	private void verifyWinner() {
 		if (game.whoseTurn() == null) {
 
-			final Results results = GameUtil.determineResults(getGame());
+			List<Result> results = GameUtil.determineResults(getGame().getPlayers());
 			
 			// so everyone give updated first (Websockets are faster than http
 			// requests)

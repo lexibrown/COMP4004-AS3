@@ -1,10 +1,10 @@
 package com.lexi.comp4004.common.game.data;
 
-public class Card {
+public class Card implements Comparable<Card> {
 
 	public enum Rank {
-		Ace(11, 1), Two(2, 2), Three(3, 3), Four(4, 4), Five(5, 5), Six(6, 6), Seven(7, 7), Eight(8, 8), Nine(9,
-				9), Ten(10, 10), Jack(10, 10), Queen(10, 10), King(10, 10);
+		Ace(14, 1), Two(2, 2), Three(3, 3), Four(4, 4), Five(5, 5), Six(6, 6), Seven(7, 7), Eight(8, 8), Nine(9,
+				9), Ten(10, 10), Jack(11, 11), Queen(12, 12), King(13, 13);
 
 		int value, altValue;
 
@@ -23,7 +23,17 @@ public class Card {
 	}
 
 	public enum Suit {
-		Clubs, Diamonds, Hearts, Spades
+		Diamonds(1), Clubs(2), Hearts(3), Spades(4);
+		
+		int value;
+
+		private Suit(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
 	}
 
 	private final Rank rank;
@@ -53,6 +63,23 @@ public class Card {
 		Card otherCard = (Card) other;
 
 		return this.getRank().equals(otherCard.getRank()) && this.getSuit().equals(otherCard.getSuit());
+	}
+
+	public int compareTo(Card other) {
+		if (this == other) {
+			return 0;
+		} else if (other == null || getClass() != other.getClass()) {
+			return 0;
+		}
+
+		Card otherCard = (Card) other;
+
+		if (this.getRank().getValue() > otherCard.getRank().getValue()) {
+			return -1;
+		} else if (this.getRank().getValue() < otherCard.getRank().getValue()) {
+			return 1;
+		}
+		return 0;
 	}
 
 }

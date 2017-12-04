@@ -91,7 +91,7 @@ public class Player {
 		strategy.doStrategy(poker);
 	}
 
-	public void informWinner(Results results) {
+	public void informWinner(List<Result> results) {
 		strategy.informWin(getName(), results);
 	}
 
