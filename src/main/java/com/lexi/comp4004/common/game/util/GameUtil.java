@@ -4,8 +4,9 @@ import com.lexi.comp4004.common.game.Poker;
 import com.lexi.comp4004.common.game.data.ClientPoker;
 import com.lexi.comp4004.common.game.data.Opponent;
 import com.lexi.comp4004.common.game.data.Player;
+import com.lexi.comp4004.common.game.data.Results;
 
-public class GameConverter {
+public class GameUtil {
 
 	public static ClientPoker getClientView(Poker game, String name) {
 		Player player = game.getPlayer(name);
@@ -32,6 +33,13 @@ public class GameConverter {
 		}
 		
 		return client;
+	}
+
+	public static Results determineResults(Poker game) {
+		// TODO
+		// determine results
+		
+		return null;
 	}
 	
 }

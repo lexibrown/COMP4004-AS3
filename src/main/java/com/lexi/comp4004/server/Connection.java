@@ -12,18 +12,20 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import com.lexi.comp4004.common.game.Poker;
+import com.lexi.comp4004.common.game.data.ClientPoker;
+import com.lexi.comp4004.common.game.data.Results;
 import com.lexi.comp4004.server.util.JsonUtil;
 import com.lexi.comp4004.server.util.TokenUtil;
 
 @ServerEndpoint(value = "/ws/{token}")
 public class Connection {
-	
+
 	private static final String TOKEN = "token";
 	private static final String LOBBY = "lobby";
 	private static final String GAME = "game";
+	private static final String RESULTS = "results";
 	private static final String GAMESTARTED = "gamestarted";
-	
+
 	private static Map<String, Session> userSessions = Collections.synchronizedMap(new HashMap<String, Session>());
 
 	@OnOpen
@@ -47,11 +49,11 @@ public class Connection {
 			}
 		}
 	}
-	
+
 	public static boolean isConnected(String user) {
 		return userSessions.containsKey(user);
 	}
-	
+
 	private static void sendMessage(String user, String message) {
 		try {
 			userSessions.get(user).getBasicRemote().sendText(message);
@@ -59,7 +61,7 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void broadcastLobby(List<String> users) {
 		try {
 			String message = JsonUtil.makeJson(LOBBY, users);
@@ -70,7 +72,7 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void broadcastStartGame(List<String> users) {
 		try {
 			String message = JsonUtil.makeJson(GAMESTARTED, true);
@@ -81,20 +83,21 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void broadcastGame(List<String> users, Poker game) {
+
+	public static void broadcastGame(String user, ClientPoker game) {
 		try {
-			String message = JsonUtil.makeJson(GAME, game);
-			for (String user : userSessions.keySet()) {
-				sendMessage(user, message);
-			}
+			sendMessage(user, JsonUtil.makeJson(GAME, game));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void broadcastEndGame(List<String> users, Poker game) {
-		// TODO
+
+	public static void broadcastEndGame(String user, Results results) {
+		try {
+			sendMessage(user, JsonUtil.makeJson(RESULTS, results));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-		
+
 }

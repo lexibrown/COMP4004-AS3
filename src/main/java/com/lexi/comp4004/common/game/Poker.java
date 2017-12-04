@@ -3,6 +3,7 @@ package com.lexi.comp4004.common.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lexi.comp4004.common.game.data.Card;
 import com.lexi.comp4004.common.game.data.Deck;
 import com.lexi.comp4004.common.game.data.Player;
 import com.lexi.comp4004.common.game.util.Config;
@@ -26,6 +27,10 @@ public class Poker {
 			return null;
 		}
 		return players.get(currentTurn - 1);
+	}
+	
+	public boolean isTurn(String user) {
+		return whoseTurn().getName().equals(user);
 	}
 
 	public Player getPlayer(String name) {
@@ -79,6 +84,13 @@ public class Poker {
 				p.receiveCard(deck.deal());
 			}
 		}
+	}
+
+	public Card deal() {
+		if (deck.empty()) {
+			return null;
+		}
+		return deck.deal();
 	}
 
 	public void nextTurn() {

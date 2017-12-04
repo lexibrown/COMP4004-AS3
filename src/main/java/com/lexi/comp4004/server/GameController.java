@@ -9,8 +9,10 @@ import com.lexi.comp4004.common.game.data.AIPlayer;
 import com.lexi.comp4004.common.game.data.Card;
 import com.lexi.comp4004.common.game.data.ClientPoker;
 import com.lexi.comp4004.common.game.data.Player;
-import com.lexi.comp4004.common.game.util.GameConverter;
+import com.lexi.comp4004.common.game.data.Results;
+import com.lexi.comp4004.common.game.util.GameUtil;
 import com.lexi.comp4004.common.template.SetUp;
+import com.lexi.comp4004.server.util.Variables;
 
 public class GameController {
 
@@ -113,13 +115,13 @@ public class GameController {
 		game.dealCards();
 
 		for (Player p : game.getPlayers()) {
-			p.play(GameConverter.getClientView(getGame(), p));
+			p.play(GameUtil.getClientView(getGame(), p));
 		}
 	}
 
 	public ClientPoker getClientView(String user) {
 		if (canDo(user)) {
-			return GameConverter.getClientView(getGame(), user);
+			return GameUtil.getClientView(getGame(), user);
 		}
 		return null;
 	}
@@ -128,41 +130,28 @@ public class GameController {
 		if (!canDo(user)) {
 			return null;
 		}
-		
-		if (!game.whoseTurn().getName().equals(user)) {
-			return null;
-		}
 
 		game.nextTurn();
-		
-		for (Player p : game.getPlayers()) {
-			if (p.getName().equals(user)) {
-				continue;
-			}
-			p.play(GameConverter.getClientView(getGame(), p));
-		}
-		return GameConverter.getClientView(getGame(), game.getPlayer(user));
+		return updatePlayers(user);
 	}
 
 	public ClientPoker swapCards(String user, List<Card> cards) {
 		if (!canDo(user)) {
 			return null;
-		}
-
-		if (!game.whoseTurn().getName().equals(user)) {
+		} else if (!game.getPlayer(user).hasCards(cards)) {
 			return null;
 		}
 
-		// TODO verify swap
-		game.nextTurn();
-		
-		for (Player p : game.getPlayers()) {
-			if (p.getName().equals(user)) {
-				continue;
+		for (Card exchanged : cards) {
+			Card newCard = game.deal();
+			if (newCard == null) {
+				return null;
 			}
-			p.play(GameConverter.getClientView(getGame(), p));
+			game.getPlayer(user).exchangeCard(exchanged, newCard);
 		}
-		return GameConverter.getClientView(getGame(), game.getPlayer(user));
+		
+		game.nextTurn();
+		return updatePlayers(user);
 	}
 
 	private boolean canDo(String user) {
@@ -174,8 +163,45 @@ public class GameController {
 			return false;
 		} else if (game.getPlayer(user) == null) {
 			return false;
+		} else if (!game.isTurn(user)) {
+			return false;
 		}
 		return true;
+	}
+
+	private ClientPoker updatePlayers(String user) {
+		for (Player p : game.getPlayers()) {
+			if (p.getName().equals(user)) {
+				continue;
+			}
+			p.play(GameUtil.getClientView(getGame(), p));
+		}
+		verifyWinner();
+		return GameUtil.getClientView(getGame(), game.getPlayer(user));
+	}
+
+	private void verifyWinner() {
+		if (game.whoseTurn() == null) {
+
+			final Results results = GameUtil.determineResults(getGame());
+			
+			// so everyone give updated first (Websockets are faster than http
+			// requests)
+			(new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(Variables.SMALL_DELAY);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					for (Player p : game.getPlayers()) {
+						p.informWinner(results);
+					}
+				}
+			})).start();
+		}
 	}
 
 }

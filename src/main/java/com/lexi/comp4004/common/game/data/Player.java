@@ -13,7 +13,7 @@ public class Player {
 	private List<Card> visibleCards;
 
 	private Strategy strategy;
-	
+
 	public Player() {
 		this.name = null;
 		hiddenCards = null;
@@ -32,7 +32,7 @@ public class Player {
 		this(name);
 		this.strategy = strategy;
 	}
-		
+
 	public String getName() {
 		return name;
 	}
@@ -70,18 +70,31 @@ public class Player {
 		return visibleCards;
 	}
 
+	public boolean hasCards(List<Card> cards) {
+		for (Card card : cards) {
+			if (!hiddenCards.contains(card)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public Strategy getStrategy() {
 		return strategy;
 	}
-	
+
 	public void setStrategy(Strategy strategy) {
 		this.strategy = strategy;
 	}
-	
+
 	public void play(ClientPoker poker) {
 		strategy.doStrategy(poker);
 	}
-	
+
+	public void informWinner(Results results) {
+		strategy.informWin(getName(), results);
+	}
+
 	public boolean equals(Object other) {
 		if (!other.getClass().equals(Player.class)) {
 			return false;

@@ -1,12 +1,17 @@
 package com.lexi.comp4004.common.game.strategy;
 
 import com.lexi.comp4004.common.game.data.ClientPoker;
+import com.lexi.comp4004.common.game.data.Results;
+import com.lexi.comp4004.server.Connection;
 
 public class PlayerStrategy extends Strategy {
 
 	public void doStrategy(ClientPoker poker) {
-		// TODO
-//		Connection.broadcastGame(users, game);
+		Connection.broadcastGame(poker.getPlayer().getName(), poker);
+	}
+	
+	public void informWin(String user, Results results) {
+		 Connection.broadcastEndGame(user, results);
 	}
 	
 	public String toString() {
