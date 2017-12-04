@@ -3,6 +3,7 @@ package com.lexi.comp4004.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lexi.comp4004.common.template.SetUp;
 import com.lexi.comp4004.server.encrypt.Token;
 import com.lexi.comp4004.server.util.TokenUtil;
 
@@ -79,6 +80,47 @@ public class Lobby {
 
 	public boolean isGameInSession() {
 		return GameController.getInstance().isGameStarted();
+	}
+	
+	public boolean setUpGame(String token, SetUp setup) {
+		if (!verifyUser(token)) {
+			return false;
+		} else if (GameController.getInstance().isGameSetUp()) {
+			return false;
+		} else if (GameController.getInstance().isGameStarted()) {
+			return false;
+		}
+		
+		String user = TokenUtil.pullUsername(token);
+		GameController.getInstance().setUpGame(setup);
+		GameController.getInstance().joinGame(user);
+		return true;
+	}
+	
+	public boolean joinGame(String token) {
+		if (!verifyUser(token)) {
+			return false;
+		} else if (!GameController.getInstance().isGameSetUp()) {
+			return false;
+		} else if (GameController.getInstance().isGameStarted()) {
+			return false;
+		}
+		
+		String user = TokenUtil.pullUsername(token);
+		return GameController.getInstance().joinGame(user);
+	}
+
+	public boolean startGame(String token) {
+		if (!verifyUser(token)) {
+			return false;
+		} else if (!GameController.getInstance().isGameSetUp()) {
+			return false;
+		} else if (GameController.getInstance().isGameStarted()) {
+			return false;
+		}
+		
+		String user = TokenUtil.pullUsername(token);
+		return GameController.getInstance().startGame(user);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.lexi.comp4004.common.game.ai;
+package com.lexi.comp4004.common.game.strategy;
 
 public class Strategy2 extends Strategy {
 

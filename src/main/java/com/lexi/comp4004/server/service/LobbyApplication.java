@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.lexi.comp4004.common.template.SetUp;
-import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.Lobby;
 import com.lexi.comp4004.server.util.JsonUtil;
 
@@ -79,8 +78,10 @@ public class LobbyApplication implements Application {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid parameters.");
 			}
 
-			GameController.getInstance().setUpGame(params.get(TOKEN).toString(), setup);
-			return JsonUtil.makeMessage("Successfully set up game.");
+			if (Lobby.getInstance().setUpGame(params.get(TOKEN).toString(), setup)) {
+				return JsonUtil.makeMessage("Successfully set up game.");
+			}
+			return JsonUtil.errorJson(SERVICE + "-3002", "Failed to set up game.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
@@ -95,10 +96,10 @@ public class LobbyApplication implements Application {
 			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-4001", "Invalid token.");
 			}
-			if (GameController.getInstance().joinGame(params.get(TOKEN).toString())) {
+			if (Lobby.getInstance().joinGame(params.get(TOKEN).toString())) {
 				return JsonUtil.makeMessage("Successfully joined game.");
 			}
-			return JsonUtil.errorJson(SERVICE + "-4002", "Game is full. Please wait for an available spot.");
+			return JsonUtil.errorJson(SERVICE + "-4002", "Failed to join game. Please ensure that a game is set up and that it isn't full.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
@@ -113,7 +114,7 @@ public class LobbyApplication implements Application {
 			} else if (!Lobby.getInstance().verifyUser(params.get(TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
 			}
-			if (GameController.getInstance().startGame(params.get(TOKEN).toString())) {
+			if (Lobby.getInstance().startGame(params.get(TOKEN).toString())) {
 				return JsonUtil.makeMessage("Successfully started game.");
 			}
 			return JsonUtil.errorJson(SERVICE + "-5002", "Failed to start game. Please ensure enough players have joined and you are a part of the game.");

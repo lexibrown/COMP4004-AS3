@@ -23,6 +23,8 @@ public class DevApplication implements Application {
 
 	public static final String TEST = "test";
 	public static final String DEV = "dev";
+	public static final String RESET = "reset";
+	
 	public static final String ADMIN = "admin";
 	public static final String PASSWORD = "password";
 	public static final String ADMIN_TOKEN = "admin_token";
@@ -73,9 +75,30 @@ public class DevApplication implements Application {
 			if (setup == null) {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
 			}
+			if (Lobby.getInstance().setUpGame(params.get(TOKEN).toString(), setup)) {
+				return JsonUtil.makeMessage("Successfully set up game.");
+			}
+			return JsonUtil.errorJson(SERVICE + "-5002", "Failed to set up game.");
+		} catch (Exception e) {
+			return JsonUtil.fail(e);
+		}
+	}
+	
+	@POST
+	@Path(RESET)
+	public String reset(HashMap<String, Object> params) {
+		try {
+			if (!params.containsKey(ADMIN_TOKEN)) {
+				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
+			} else if (!verifyAdminToken(params.get(ADMIN_TOKEN).toString())) {
+				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");				
+			}
 
-			GameController.getInstance().setUpGame(params.get(TOKEN).toString(), setup);
-			return JsonUtil.makeMessage("Successfully set up game.");
+			if (!GameController.getInstance().isGameStarted()) {
+				GameController.getInstance().reset();
+				return JsonUtil.makeMessage("Successfully reset game.");
+			}
+			return JsonUtil.errorJson(SERVICE + "-5003", "Cannot reset game that is in session.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}

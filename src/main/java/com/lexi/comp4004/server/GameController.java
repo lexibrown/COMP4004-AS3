@@ -9,6 +9,7 @@ public class GameController {
 	
 	private Poker game;
 	private boolean gameStarted = false;
+	private boolean gameSetUp = false;
 	
 	private GameController() {
 		game = new Poker();
@@ -21,9 +22,9 @@ public class GameController {
 		return instance;
 	}
 	
-	public void setUpGame(String token, SetUp setup) {
+	public void setUpGame(SetUp setup) {
 		setGame(setup.setUpGame(getGame()));
-		
+		gameSetUp = true;
 	}
 	
 	public void setGame(Poker p) {
@@ -42,21 +43,50 @@ public class GameController {
 	
 	public void reset() {
 		gameStarted = false;
+		gameSetUp = false;
 		game = new Poker();
 	}
 	
 	public boolean isGameStarted() {
 		return gameStarted;
 	}
-
-	public boolean joinGame(String string) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public boolean isGameSetUp() {
+		return gameSetUp;
+	}
+	
+	public boolean isGameFull() {
+		return game.isFull();
 	}
 
-	public boolean startGame(String string) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean joinGame(String user) {
+		if (isGameFull()) {
+			return false;
+		} else if (isGameStarted()) {
+			return false;
+		} else if (!isGameSetUp()) {
+			return false;
+		} else if (game.getPlayer(user) != null) {
+			return true;
+		}
+		return game.addPlayer(user);
+	}
+
+	public boolean startGame(String user) {
+		if (isGameStarted()) {
+			return false;
+		} else if (!isGameSetUp()) {
+			return false;
+		} else if (!isGameFull()) {
+			return false;
+		} else if (game.getPlayer(user) == null) {
+			return false;
+		}
+		
+		
+		// TODO
+		// send first player start
+		return true;
 	}
 	
 }
