@@ -1,60 +1,67 @@
 package com.lexi.comp4004.common.template;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.lexi.comp4004.common.game.Poker;
 import com.lexi.comp4004.common.game.data.AIPlayer;
-import com.lexi.comp4004.common.game.data.Card;
-import com.lexi.comp4004.common.game.strategy.Strategy1;
-import com.lexi.comp4004.common.game.strategy.Strategy2;
+import com.lexi.comp4004.common.game.data.Deck;
+import com.lexi.comp4004.common.game.data.Player;
 
-public class DevSetUp extends SetUp {
+public class DevSetUp extends SetUp implements Serializable {
 
-	private String playerName = "";
-	private List<Card> playerCards = new ArrayList<Card>();
-	private Map<Integer, List<Card>> aiCards = new HashMap<Integer, List<Card>>();
+	private static final long serialVersionUID = 965947400573115615L;
 
-	// TODO
+	private List<Player> players = new ArrayList<Player>();
+	private List<AIPlayer> aiPlayers = new ArrayList<AIPlayer>();
+	private Deck deck;
 	
 	@Override
 	public Poker setUpGame(Poker poker) {
 		poker.setMaxNumPlayers(getNumPlayers());
-		for (int i = 0; i < getAiPlayers().size(); i++) {
-			int strat = getAiPlayers().get(i);
-			if (strat == 1) {
-				poker.addPlayer(new AIPlayer("Computer" + i, new Strategy1()));
-			} else if (strat == 2) {
-				poker.addPlayer(new AIPlayer("Computer" + i, new Strategy2()));
-			}
+		for (int i = 0; i < aiPlayers.size(); i++) {
+			poker.addPlayer(aiPlayers.get(i));
+		}
+		for (int i = 0; i < players.size(); i++) {
+			poker.addPlayer(players.get(i));
+		}
+		if (deck != null) {
+			poker.setDeck(deck);
 		}
 		return poker;
 	}
 
-	public String getPlayerName() {
-		return playerName;
+	public void addPlayer(Player player) {
+		players.add(player);
+	}
+	
+	public void addAiPlayer(AIPlayer aiPlayer) {
+		aiPlayers.add(aiPlayer);
+	}
+	
+	public List<Player> getPlayers() {
+		return players;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setPlayers(List<Player> players) {
+		this.players = players;
 	}
 
-	public List<Card> getPlayerCards() {
-		return playerCards;
+	public List<AIPlayer> getAIPlayers() {
+		return aiPlayers;
 	}
 
-	public void setPlayerCards(List<Card> playerCards) {
-		this.playerCards = playerCards;
+	public void setAIPlayers(List<AIPlayer> aiPlayers) {
+		this.aiPlayers = aiPlayers;
+	}
+	
+	public Deck getDeck() {
+		return deck;
 	}
 
-	public Map<Integer, List<Card>> getAiCards() {
-		return aiCards;
+	public void setDeck(Deck deck) {
+		this.deck = deck;
 	}
-
-	public void addAiCards(int ai, List<Card> aiCards) {
-		this.aiCards.put(ai, aiCards);
-	}
-
+	
 }

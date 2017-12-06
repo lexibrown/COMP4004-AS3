@@ -137,14 +137,17 @@ public class GameController {
 
 	public ClientPoker swapCards(String user, List<Card> cards) {
 		if (!canDo(user)) {
+			System.out.println("cantdo");
 			return null;
 		} else if (!game.getPlayer(user).hasCards(cards)) {
+			System.out.println("nohas");
 			return null;
 		}
 
 		for (Card exchanged : cards) {
 			Card newCard = game.deal();
 			if (newCard == null) {
+				System.out.println("nullcard");
 				return null;
 			}
 			game.getPlayer(user).exchangeCard(exchanged, newCard);
@@ -156,14 +159,19 @@ public class GameController {
 
 	private boolean canDo(String user) {
 		if (!isGameStarted()) {
+			System.out.println("1");
 			return false;
 		} else if (!isGameSetUp()) {
+			System.out.println("2");
 			return false;
 		} else if (!isGameFull()) {
+			System.out.println("3");
 			return false;
 		} else if (game.getPlayer(user) == null) {
+			System.out.println("4");
 			return false;
 		} else if (!game.isTurn(user)) {
+			System.out.println("5");
 			return false;
 		}
 		return true;

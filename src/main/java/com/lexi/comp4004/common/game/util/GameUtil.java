@@ -35,24 +35,16 @@ public class GameUtil {
 			client.addOpponent(new Opponent(p));
 		}
 
-		if (game.whoseTurn().equals(player)) {
+		if (player.equals(game.whoseTurn())) {
 			client.setTurn(true);
 		}
-
 		return client;
 	}
 
 	public static List<Result> determineResults(List<Player> players) {
 		List<Result> results = new ArrayList<Result>();
 		for (Player p : players) {
-			Result result = new Result();
-			result.setUser(p.getName());
-			result.setCards(p.getCards());
-
-			Ranking r = determineHand(p.getCards());
-			result.setOutcome(r.toString());
-			result.setRank(r.getValue());
-			results.add(result);
+			results.add(determineResults(p));
 		}
 
 		Collections.sort(results, new Comparator<Result>() {
@@ -68,6 +60,17 @@ public class GameUtil {
 		});
 
 		return results;
+	}
+
+	public static Result determineResults(Player p) {
+		Result result = new Result();
+		result.setUser(p.getName());
+		result.setCards(p.getCards());
+
+		Ranking r = determineHand(p.getCards());
+		result.setOutcome(r.toString());
+		result.setRank(r.getValue());
+		return result;
 	}
 
 	public enum Ranking {
@@ -350,7 +353,7 @@ public class GameUtil {
 		return false;
 	}
 
-	private static int getMostCommonRank(List<Card> cards) {
+	public static int getMostCommonRank(List<Card> cards) {
 		int count = 1, tempCount;
 		int popular = cards.get(0).getRank().getValue();
 		int temp = 0;

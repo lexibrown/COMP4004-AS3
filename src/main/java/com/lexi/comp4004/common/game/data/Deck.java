@@ -1,9 +1,12 @@
 package com.lexi.comp4004.common.game.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck {
+public class Deck implements Serializable {
+
+	private static final long serialVersionUID = 1289182103126102683L;
 
 	private List<Card> packsOfCards;
 	private List<Card> deck;
@@ -44,6 +47,10 @@ public class Deck {
 		deck.add(card);
 	}
 	
+	public void remove(Card card) {
+		deck.remove(card);
+	}
+	
 	public List<Card> getCards() {
 		return deck;
 	}
@@ -60,5 +67,5 @@ public class Deck {
 		deck.clear();
 		packsOfCards.clear();
 	}
-
+	
 }

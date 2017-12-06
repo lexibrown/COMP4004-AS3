@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.lexi.comp4004.common.template.ClientSetUp;
 import com.lexi.comp4004.common.template.SetUp;
 import com.lexi.comp4004.server.Lobby;
 import com.lexi.comp4004.server.util.JsonUtil;
@@ -73,7 +74,7 @@ public class LobbyApplication implements Application {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
 			}
 			
-			SetUp setup = (SetUp) params.get(SETUP);
+			SetUp setup = (ClientSetUp) params.get(SETUP);
 			if (setup == null) {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid parameters.");
 			}

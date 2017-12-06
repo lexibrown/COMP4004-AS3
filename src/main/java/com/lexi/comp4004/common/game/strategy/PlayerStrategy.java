@@ -9,14 +9,13 @@ public class PlayerStrategy extends Strategy {
 	public void doStrategy(ClientPoker poker) {
 		Connection.broadcastGame(poker.getPlayer().getName(), poker);
 	}
-	
+
 	public void informWin(String user, Result results) {
-		 Connection.broadcastEndGame(user, results);
+		Connection.broadcastEndGame(user, results);
 	}
-	
+
 	public String toString() {
 		return "Contracts the player to play their turn.";
 	}
-	
-}
 
+}

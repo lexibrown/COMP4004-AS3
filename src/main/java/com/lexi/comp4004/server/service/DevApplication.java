@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.lexi.comp4004.common.template.DevSetUp;
 import com.lexi.comp4004.common.template.SetUp;
 import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.Lobby;
@@ -47,7 +48,7 @@ public class DevApplication implements Application {
 			}
 
 			if (Variables.ADMIN.equals(params.get(ADMIN)) && Variables.ADMIN_PASSWORD.equals(params.get(PASSWORD))) {
-				return JsonUtil.makeJson(ADMIN_TOKEN, TokenUtil.encypt(Variables.ADMIN, Variables.ADMIN_PASSWORD));
+				return JsonUtil.makeJson(ADMIN_TOKEN, constructToken());
 			}
 			return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
 		} catch (Exception e) {
@@ -71,7 +72,7 @@ public class DevApplication implements Application {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");				
 			}
 
-			SetUp setup = (SetUp) params.get(SETUP);
+			SetUp setup = (DevSetUp) params.get(SETUP);
 			if (setup == null) {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
 			}
@@ -108,6 +109,10 @@ public class DevApplication implements Application {
 		String admin = TokenUtil.pullUsername(token);
 		String password = TokenUtil.pullPassowrd(token);
 		return Variables.ADMIN.equals(admin) && Variables.ADMIN_PASSWORD.equals(password);
+	}
+	
+	private String constructToken() throws Exception {
+		return TokenUtil.encypt(Variables.ADMIN, Variables.ADMIN_PASSWORD);
 	}
 
 }

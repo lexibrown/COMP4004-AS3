@@ -1,12 +1,15 @@
 package com.lexi.comp4004.common.game.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lexi.comp4004.common.game.strategy.PlayerStrategy;
 import com.lexi.comp4004.common.game.strategy.Strategy;
 
-public class Player {
+public class Player implements Serializable {
+
+	private static final long serialVersionUID = -1246637753172162419L;
 
 	private String name;
 	private List<Card> hiddenCards;
@@ -96,7 +99,9 @@ public class Player {
 	}
 
 	public boolean equals(Object other) {
-		if (!other.getClass().equals(Player.class)) {
+		if (other == null) {
+			return false;
+		} else if (!other.getClass().equals(Player.class)) {
 			return false;
 		}
 		Player otherPlayer = (Player) other;

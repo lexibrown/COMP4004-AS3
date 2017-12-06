@@ -65,7 +65,11 @@ public class Poker {
 	public Deck getDeck() {
 		return deck;
 	}
-
+	
+	public void setDeck(Deck deck) {
+		this.deck = deck;
+	}
+	
 	public int getMaxNumPlayers() {
 		return maxNumPlayers;
 	}
@@ -81,6 +85,9 @@ public class Poker {
 	public void dealCards() {
 		for (int i = 0; i < Config.MAX_CARDS; i++) {
 			for (Player p : players) {
+				if (p.getCards().size() >= Config.MAX_CARDS) {
+					continue;
+				}
 				p.receiveCard(deck.deal());
 			}
 		}
@@ -96,5 +103,5 @@ public class Poker {
 	public void nextTurn() {
 		currentTurn++;
 	}
-	
+
 }

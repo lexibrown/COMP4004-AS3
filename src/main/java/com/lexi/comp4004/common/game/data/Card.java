@@ -1,6 +1,10 @@
 package com.lexi.comp4004.common.game.data;
 
-public class Card implements Comparable<Card> {
+import java.io.Serializable;
+
+public class Card implements Comparable<Card>, Serializable {
+
+	private static final long serialVersionUID = -6027718155028936960L;
 
 	public enum Rank {
 		Ace(14, 1), Two(2, 2), Three(3, 3), Four(4, 4), Five(5, 5), Six(6, 6), Seven(7, 7), Eight(8, 8), Nine(9,

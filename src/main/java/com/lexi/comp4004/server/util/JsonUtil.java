@@ -49,6 +49,12 @@ public class JsonUtil {
 		return stringify(message);
 	}
 
+	public static String makeComplexJson(String key, Object value) throws Exception {
+		HashMap<String, Object> message = new HashMap<String, Object>();
+		message.put(key, stringify(value));
+		return stringify(message);
+	}
+
 	public static String errorJson(String message) throws Exception {
 		return errorJson(null, message);
 	}

@@ -1,12 +1,16 @@
 package com.lexi.comp4004.common.template;
 
+import java.io.Serializable;
+
 import com.lexi.comp4004.common.game.Poker;
 import com.lexi.comp4004.common.game.data.AIPlayer;
 import com.lexi.comp4004.common.game.strategy.Strategy1;
 import com.lexi.comp4004.common.game.strategy.Strategy2;
 
-public class ClientSetUp extends SetUp {
+public class ClientSetUp extends SetUp implements Serializable {
 	
+	private static final long serialVersionUID = 577920321916495774L;
+
 	@Override
 	public Poker setUpGame(Poker poker) {
 		poker.setMaxNumPlayers(getNumPlayers());

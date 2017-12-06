@@ -20,6 +20,7 @@ public class StartApplication extends Application {
 		classes.add(LobbyApplication.class);
 		classes.add(GameApplication.class);
 		
+		classes.add(AIApplication.class);
 		classes.add(DevApplication.class);
 		
 		return classes;

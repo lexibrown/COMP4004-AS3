@@ -1,10 +1,13 @@
 package com.lexi.comp4004.common.game.data;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ClientPoker {
+public class ClientPoker implements Serializable {
 
+	private static final long serialVersionUID = 4679252163486617194L;
+	
 	private int numCardInDeck = 0;
 	private Player player;
 	private List<Opponent> opponents;

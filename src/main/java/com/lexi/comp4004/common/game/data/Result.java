@@ -1,9 +1,12 @@
 package com.lexi.comp4004.common.game.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Result {
+public class Result implements Serializable {
+
+	private static final long serialVersionUID = -3903381767066500464L;
 
 	private int rank;
 	private String user;

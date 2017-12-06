@@ -1,9 +1,12 @@
 package com.lexi.comp4004.common.game.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Opponent {
+public class Opponent implements Serializable {
+
+	private static final long serialVersionUID = 410694835369462376L;
 
 	private String name;
 	private int numCards = 0;
