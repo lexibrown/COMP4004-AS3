@@ -2,26 +2,14 @@ package com.lexi.comp4004.common.template;
 
 import java.io.Serializable;
 
-import com.lexi.comp4004.common.game.Poker;
-import com.lexi.comp4004.common.game.data.AIPlayer;
-import com.lexi.comp4004.common.game.strategy.Strategy1;
-import com.lexi.comp4004.common.game.strategy.Strategy2;
-
 public class ClientSetUp extends SetUp implements Serializable {
-	
+
 	private static final long serialVersionUID = 577920321916495774L;
 
 	@Override
-	public Poker setUpGame(Poker poker) {
+	public SetUpPoker setUpGame(SetUpPoker poker) {
 		poker.setMaxNumPlayers(getNumPlayers());
-		for (int i = 0; i < getAiPlayers().size(); i++) {
-			int strat = getAiPlayers().get(i);
-			if (strat == 1) {
-				poker.addPlayer(new AIPlayer("Computer" + i, new Strategy1()));
-			} else if (strat == 2) {
-				poker.addPlayer(new AIPlayer("Computer" + i, new Strategy2()));
-			}
-		}
+		poker.setAiPlayers(getAiPlayers());
 		return poker;
 	}
 

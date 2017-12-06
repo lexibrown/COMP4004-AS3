@@ -7,12 +7,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.lexi.comp4004.common.game.util.Config.Key;
 import com.lexi.comp4004.server.Lobby;
 import com.lexi.comp4004.server.util.JsonUtil;
 
 @Path("/connect")
 @Produces(MediaType.APPLICATION_JSON)
-public class ConnectApplication implements Application {
+public class ConnectApplication {
 
 	public static final String SERVICE = "CONT";
 
@@ -24,7 +25,7 @@ public class ConnectApplication implements Application {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String connect(@QueryParam(USERID) String userid) {
+	public String connect(@QueryParam(Key.USER) String userid) {
 		try {
 			if (userid.isEmpty()) {
 				return JsonUtil.errorJson(SERVICE + "-1000", "No username provided.");
@@ -34,7 +35,7 @@ public class ConnectApplication implements Application {
 			if (token == null) {
 				return JsonUtil.errorJson(SERVICE + "-1001", "Username is already in use.");
 			}
-			return JsonUtil.makeJson(TOKEN, token);
+			return JsonUtil.makeJson(Key.TOKEN, token);
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}

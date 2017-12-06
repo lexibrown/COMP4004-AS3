@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.lexi.comp4004.common.game.data.Card;
+import com.lexi.comp4004.common.game.util.Config.Key;
 import com.lexi.comp4004.server.util.JsonUtil;
 import com.lexi.comp4004.server.util.TokenUtil;
 import com.lexi.comp4004.server.util.Variables;
@@ -28,16 +29,16 @@ public class AIConnection {
 
 	public static void sendKeep(String user) {
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
-					//Thread.sleep(Variables.MED_DELAY);
-					
+					// Thread.sleep(Variables.MED_DELAY);
+
 					reloadUri();
 					Map<String, Object> params = new HashMap<String, Object>();
-					params.put(Variables.COMP, user);
-					params.put(Variables.COMP_TOKEN, constructToken());
+					params.put(Key.COMP, user);
+					params.put(Key.COMP_TOKEN, constructToken());
 
 					target = target.path("/ai/keephand");
 					sendRequest(JsonUtil.stringify(params));
@@ -50,17 +51,17 @@ public class AIConnection {
 
 	public static void sendSwap(String user, List<Card> cards) {
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
-					//Thread.sleep(Variables.MED_DELAY);
-					
+					// Thread.sleep(Variables.MED_DELAY);
+
 					reloadUri();
 					Map<String, Object> params = new HashMap<String, Object>();
-					params.put(Variables.COMP, user);
-					params.put(Variables.COMP_TOKEN, constructToken());
-					params.put(Variables.CARDS, cards);
+					params.put(Key.COMP, user);
+					params.put(Key.COMP_TOKEN, constructToken());
+					params.put(Key.CARDS, cards);
 
 					target = target.path("/ai/swaphand");
 					sendRequest(JsonUtil.stringify(params));
@@ -76,15 +77,15 @@ public class AIConnection {
 				.post(Entity.entity(input, MediaType.APPLICATION_JSON), Response.class);
 
 		System.out.println(response);
-		
-		//System.out.println(response.readEntity(String.class));
+
+		// System.out.println(response.readEntity(String.class));
 		System.out.println(response.readEntity(Map.class));
-		
+
 		if (response.getStatus() == 200) {
 			System.out.println("post success");
 		}
 	}
-	
+
 	private static String constructToken() throws Exception {
 		return TokenUtil.encypt(Variables.COMPUTER, Variables.COMP_PASSWORD);
 	}

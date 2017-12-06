@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.lexi.comp4004.common.game.data.Card;
 import com.lexi.comp4004.common.game.data.ClientPoker;
+import com.lexi.comp4004.common.game.util.Config.Key;
 import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.util.JsonUtil;
 import com.lexi.comp4004.server.util.TokenUtil;
@@ -19,7 +20,7 @@ import com.lexi.comp4004.server.util.Variables;
 
 @Path("/ai")
 @Produces(MediaType.APPLICATION_JSON)
-public class AIApplication implements Application {
+public class AIApplication {
 
 	public static final String SERVICE = "AI";
 
@@ -37,7 +38,7 @@ public class AIApplication implements Application {
 	public String test(@PathParam("user") String user) {
 		try {
 			ClientPoker poker = GameController.getInstance().getClientView(user);
-			return JsonUtil.makeJson(GAME, poker);
+			return JsonUtil.makeJson(Key.GAME, poker);
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
@@ -47,20 +48,20 @@ public class AIApplication implements Application {
 	@Path(KEEPHAND)
 	public String keepHand(HashMap<String, Object> params) {
 		try {
-			if (!params.containsKey(Variables.COMP_TOKEN)) {
+			if (!params.containsKey(Key.COMP_TOKEN)) {
 				return JsonUtil.errorJson(SERVICE + "-6000", "No token provided.");
-			} else if (!verifyComputerToken(params.get(Variables.COMP_TOKEN).toString())) {
+			} else if (!verifyComputerToken(params.get(Key.COMP_TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-6001", "Invalid token.");
-			} else if (!params.containsKey(Variables.COMP)) {
+			} else if (!params.containsKey(Key.COMP)) {
 				return JsonUtil.errorJson(SERVICE + "-6000", "No name provided.");
 			}
 
-			String user = params.get(Variables.COMP).toString();
+			String user = params.get(Key.COMP).toString();
 			ClientPoker poker = GameController.getInstance().keepHand(user);
 			if (poker == null) {
 				return JsonUtil.errorJson(SERVICE + "-6002", "Failed to keep hand.");
 			}
-			return JsonUtil.makeComplexJson(GAME, poker);
+			return JsonUtil.makeComplexJson(Key.GAME, poker);
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
@@ -70,26 +71,26 @@ public class AIApplication implements Application {
 	@Path(SWAPHAND)
 	public String swapHand(HashMap<String, Object> params) {
 		try {
-			if (!params.containsKey(Variables.COMP_TOKEN)) {
+			if (!params.containsKey(Key.COMP_TOKEN)) {
 				return JsonUtil.errorJson(SERVICE + "-6000", "No token provided.");
-			} else if (!verifyComputerToken(params.get(Variables.COMP_TOKEN).toString())) {
+			} else if (!verifyComputerToken(params.get(Key.COMP_TOKEN).toString())) {
 				return JsonUtil.errorJson(SERVICE + "-6001", "Invalid token.");
-			} else if (!params.containsKey(Variables.COMP)) {
+			} else if (!params.containsKey(Key.COMP)) {
 				return JsonUtil.errorJson(SERVICE + "-6000", "No name provided.");
-			} else if (!params.containsKey(Variables.CARDS)) {
+			} else if (!params.containsKey(Key.CARDS)) {
 				return JsonUtil.errorJson(SERVICE + "-6000", "No cards provided.");
 			}
 
-			String user = params.get(Variables.COMP).toString();
+			String user = params.get(Key.COMP).toString();
 
 			@SuppressWarnings("unchecked")
-			List<Card> cards = (List<Card>) params.get(Variables.CARDS);
+			List<Card> cards = (List<Card>) params.get(Key.CARDS);
 
 			ClientPoker poker = GameController.getInstance().swapCards(user, cards);
 			if (poker == null) {
 				return JsonUtil.errorJson(SERVICE + "-6002", "Failed to swap hand.");
 			}
-			return JsonUtil.makeComplexJson(GAME, poker);
+			return JsonUtil.makeComplexJson(Key.GAME, poker);
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}

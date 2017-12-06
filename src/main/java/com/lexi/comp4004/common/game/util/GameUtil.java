@@ -24,15 +24,15 @@ public class GameUtil {
 	}
 
 	public static ClientPoker getClientView(Poker game, Player player) {
-		ClientPoker client = new ClientPoker(player);
+		ClientPoker client = new ClientPoker(player.getName(), player.getHiddenCards(), player.getVisibleCards());
 
 		client.setNumCardInDeck(game.getDeck().size());
-
+		
 		for (Player p : game.getPlayers()) {
 			if (p.equals(player)) {
 				continue;
 			}
-			client.addOpponent(new Opponent(p));
+			client.addOpponent(new Opponent(p.getName(), p.getVisibleCards()));
 		}
 
 		if (player.equals(game.whoseTurn())) {
@@ -44,7 +44,7 @@ public class GameUtil {
 	public static List<Result> determineResults(List<Player> players) {
 		List<Result> results = new ArrayList<Result>();
 		for (Player p : players) {
-			results.add(determineResults(p));
+			results.add(determineResults(p.getName(), p.getCards()));
 		}
 
 		Collections.sort(results, new Comparator<Result>() {
@@ -62,12 +62,12 @@ public class GameUtil {
 		return results;
 	}
 
-	public static Result determineResults(Player p) {
+	public static Result determineResults(String name, List<Card> cards) {
 		Result result = new Result();
-		result.setUser(p.getName());
-		result.setCards(p.getCards());
+		result.setUser(name);
+		result.setCards(cards);
 
-		Ranking r = determineHand(p.getCards());
+		Ranking r = determineHand(cards);
 		result.setOutcome(r.toString());
 		result.setRank(r.getValue());
 		return result;

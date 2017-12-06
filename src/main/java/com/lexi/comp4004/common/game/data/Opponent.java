@@ -23,11 +23,11 @@ public class Opponent implements Serializable {
 		this.numCards = 0;
 		this.visibleCards = new ArrayList<Card>();
 	}
-	
-	public Opponent(Player player) {
-		this.name = player.getName();
-		this.numCards = player.getCards().size();
-		this.visibleCards = player.getVisibleCards();
+
+	public Opponent(String name, List<Card> cards) {
+		this.name = name;
+		this.numCards = cards.size();
+		this.visibleCards = cards;
 	}
 
 	public String getName() {

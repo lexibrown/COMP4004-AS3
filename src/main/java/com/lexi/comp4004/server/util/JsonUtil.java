@@ -10,11 +10,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.lexi.comp4004.common.game.util.Config.Key;
 
 public class JsonUtil {
-
-	public static final String ERROR = "ERROR";
-	public static final String MESSAGE = "MESSAGE";
 
 	static final ObjectMapper objectMapper = new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
 			.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
@@ -40,7 +38,7 @@ public class JsonUtil {
 	}
 
 	public static String makeMessage(String message) throws Exception {
-		return makeJson(MESSAGE, message);
+		return makeJson(Key.MESSAGE, message);
 	}
 
 	public static String makeJson(String key, Object value) throws Exception {
@@ -61,8 +59,8 @@ public class JsonUtil {
 
 	public static String errorJson(String type, String message) throws Exception {
 		HashMap<String, String> error = new HashMap<String, String>();
-		error.put(ERROR, type);
-		error.put(MESSAGE, message);
+		error.put(Key.ERROR, type);
+		error.put(Key.MESSAGE, message);
 		return stringify(error);
 	}
 

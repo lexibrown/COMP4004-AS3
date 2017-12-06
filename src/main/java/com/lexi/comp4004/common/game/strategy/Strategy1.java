@@ -16,11 +16,11 @@ public class Strategy1 extends Strategy {
 			return;
 		}
 
-		int rank = GameUtil.determineResults(poker.getPlayer()).getRank();
+		int rank = GameUtil.determineResults(poker.getName(), poker.getCards()).getRank();
 		if (rank >= Ranking.STRAIGHT.getValue()) {
-			AIConnection.sendKeep(poker.getPlayer().getName());
+			AIConnection.sendKeep(poker.getName());
 		} else {
-			List<Card> cards = poker.getPlayer().getHiddenCards();
+			List<Card> cards = poker.getHiddenCards();
 			if (rank != Ranking.HIGH_CARD.getValue()) {
 				int dup = GameUtil.getMostCommonRank(cards);
 				ListIterator<Card> iter = cards.listIterator();
@@ -41,7 +41,7 @@ public class Strategy1 extends Strategy {
 					}
 				}
 			}
-			AIConnection.sendSwap(poker.getPlayer().getName(), cards);
+			AIConnection.sendSwap(poker.getName(), cards);
 		}
 	}
 

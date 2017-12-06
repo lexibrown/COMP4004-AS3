@@ -7,7 +7,7 @@ import com.lexi.comp4004.server.Connection;
 public class PlayerStrategy extends Strategy {
 
 	public void doStrategy(ClientPoker poker) {
-		Connection.broadcastGame(poker.getPlayer().getName(), poker);
+		Connection.broadcastGame(poker.getName(), poker);
 	}
 
 	public void informWin(String user, Result results) {

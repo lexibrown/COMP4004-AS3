@@ -12,6 +12,7 @@ import com.lexi.comp4004.common.game.data.Player;
 import com.lexi.comp4004.common.game.data.Result;
 import com.lexi.comp4004.common.game.util.GameUtil;
 import com.lexi.comp4004.common.template.SetUp;
+import com.lexi.comp4004.common.template.SetUpUtil;
 import com.lexi.comp4004.server.util.Variables;
 
 public class GameController {
@@ -36,7 +37,7 @@ public class GameController {
 	}
 
 	public void setUpGame(SetUp setup) {
-		setGame(setup.setUpGame(getGame()));
+		setGame(SetUpUtil.setUpGame(getGame(), setup));
 		gameSetUp = true;
 	}
 

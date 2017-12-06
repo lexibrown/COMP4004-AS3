@@ -12,9 +12,6 @@ public class Variables {
 	// for ai only
 	public static final String COMPUTER = "computer";
 	public static final String COMP_PASSWORD = ADMIN_PASSWORD;
-	public static final String COMP_TOKEN = "comp_token";
-	public static final String COMP = "comp";
-	public static final String CARDS = "cards";
 
 	public static final String baseUri = "http://localhost:8080/COMP4004-AS3";
 

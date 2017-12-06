@@ -1,29 +1,39 @@
 package com.lexi.comp4004.common.template;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lexi.comp4004.common.game.data.Card;
 
-public class DevSetUp extends SetUp implements Serializable {
+public class SetUpPoker {
 
-	private static final long serialVersionUID = 965947400573115615L;
-
+	private List<Card> deck = new ArrayList<Card>();
 	private String playerName;
 	private List<Card> playerCards = new ArrayList<Card>();
-	private List<List<Card>> aiCards = new ArrayList<List<Card>>();
-	private List<Card> deck;
 
-	@Override
-	public SetUpPoker setUpGame(SetUpPoker poker) {
-		poker.setMaxNumPlayers(getNumPlayers());
-		poker.setPlayerName(getPlayerName());
-		poker.setPlayerCards(getPlayerCards());
-		poker.setAiPlayers(getAiPlayers());
-		poker.setAiCards(getAiCards());
-		poker.setDeck(deck);
-		return poker;
+	private List<Integer> aiPlayers = new ArrayList<Integer>();
+	private List<List<Card>> aiCards = new ArrayList<List<Card>>();
+	
+	private int maxNumPlayers = 2;
+	
+	public SetUpPoker() {
+		playerName = null;
+	}
+	
+	public List<Card> getDeck() {
+		return deck;
+	}
+	
+	public void setDeck(List<Card> deck) {
+		this.deck = deck;
+	}
+	
+	public int getMaxNumPlayers() {
+		return maxNumPlayers;
+	}
+
+	public void setMaxNumPlayers(int maxNumPlayers) {
+		this.maxNumPlayers = maxNumPlayers;
 	}
 
 	public String getPlayerName() {
@@ -42,24 +52,24 @@ public class DevSetUp extends SetUp implements Serializable {
 		this.playerCards = playerCards;
 	}
 
-	public List<Card> getDeck() {
-		return deck;
+
+	public List<Integer> getAiPlayers() {
+		return aiPlayers;
 	}
 
-	public void setDeck(List<Card> deck) {
-		this.deck = deck;
+
+	public void setAiPlayers(List<Integer> aiPlayers) {
+		this.aiPlayers = aiPlayers;
 	}
+
 
 	public List<List<Card>> getAiCards() {
 		return aiCards;
 	}
 
+
 	public void setAiCards(List<List<Card>> aiCards) {
 		this.aiCards = aiCards;
 	}
 	
-	public void addAiCards(List<Card> aiCards) {
-		this.aiCards.add(aiCards);
-	}
-
 }
