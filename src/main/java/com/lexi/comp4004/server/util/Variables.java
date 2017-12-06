@@ -10,7 +10,7 @@ public class Variables {
 	public static final String ADMIN_PASSWORD = "password1";
 	
 	// for ai only
-	public static final String COMPUTER = "computer";
+	public static final String COMPUTER = "Computer";
 	public static final String COMP_PASSWORD = ADMIN_PASSWORD;
 
 	public static final String baseUri = "http://localhost:8080/COMP4004-AS3";
