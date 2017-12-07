@@ -15,7 +15,10 @@ public class ClientPoker implements Serializable {
 	private List<Card> visibleCards;
 	private List<Opponent> opponents;
 	
+	private String currentTurn = null;
+	
 	private boolean isTurn = false;
+	private boolean isFirst = false;
 	
 	public ClientPoker() {
 		numCardInDeck = 0;
@@ -23,7 +26,9 @@ public class ClientPoker implements Serializable {
 		setHiddenCards(new ArrayList<Card>());
 		setVisibleCards(new ArrayList<Card>());
 		opponents = new ArrayList<Opponent>();
+		setCurrentTurn(null);
 		setTurn(false);
+		setFirst(false);
 	}
 	
 	public ClientPoker(String name, List<Card> hidden, List<Card> visible) {
@@ -32,7 +37,9 @@ public class ClientPoker implements Serializable {
 		setHiddenCards(hidden);
 		setVisibleCards(visible);
 		opponents = new ArrayList<Opponent>();
+		setCurrentTurn(null);
 		setTurn(false);
+		setFirst(false);
 	}
 
 	public int getNumCardInDeck() {
@@ -92,6 +99,22 @@ public class ClientPoker implements Serializable {
 
 	public void setTurn(boolean isTurn) {
 		this.isTurn = isTurn;
+	}
+
+	public boolean isFirst() {
+		return isFirst;
+	}
+
+	public void setFirst(boolean isFirst) {
+		this.isFirst = isFirst;
+	}
+
+	public String getCurrentTurn() {
+		return currentTurn;
+	}
+
+	public void setCurrentTurn(String currentTurn) {
+		this.currentTurn = currentTurn;
 	}
 	
 }

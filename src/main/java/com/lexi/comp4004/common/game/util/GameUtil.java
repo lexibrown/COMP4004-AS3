@@ -38,6 +38,10 @@ public class GameUtil {
 		if (player.equals(game.whoseTurn())) {
 			client.setTurn(true);
 		}
+		if (player.equals(game.getPlayers().get(0))) {
+			client.setFirst(true);
+		}
+		client.setCurrentTurn(game.whoseTurn().getName());
 		return client;
 	}
 

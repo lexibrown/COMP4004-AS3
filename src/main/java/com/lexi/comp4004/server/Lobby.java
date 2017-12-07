@@ -43,6 +43,7 @@ public class Lobby {
 		}
 		
 		Token t = TokenUtil.constuctToken(username);
+		activeUsers.add(t);
 		Connection.broadcastLobby(getUsers());
 		return TokenUtil.encryt(t);
 	}

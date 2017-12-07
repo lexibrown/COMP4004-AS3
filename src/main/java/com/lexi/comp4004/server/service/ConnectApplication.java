@@ -17,11 +17,11 @@ public class ConnectApplication {
 
 	public static final String SERVICE = "CONT";
 
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String defaultEndpoint() {
-		return "Connection service.";
-	}
+//	@GET
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String defaultEndpoint() {
+//		return "Connection service.";
+//	}
 
 	@GET
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

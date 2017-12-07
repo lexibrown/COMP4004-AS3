@@ -6,6 +6,9 @@ public class Strategy2 extends Strategy {
 
 	public void doStrategy(ClientPoker poker) {
 		// TODO
+		if (poker.isFirst()) {
+			
+		}
 	}
 	
 	public String toString() {
