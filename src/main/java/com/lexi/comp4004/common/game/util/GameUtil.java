@@ -343,9 +343,24 @@ public class GameUtil {
 		} else if (r1.getRank() == Ranking.ONE_PAIR.getValue()) {
 			return getMostCommonRank(r1.getCards()) > getMostCommonRank(r2.getCards());
 		}
-		return highestCard(r1.getCards()) > highestCard(r2.getCards());
+		
+		int r1High = highestCard(r1.getCards());
+		int r2High = highestCard(r2.getCards());
+		if (r1High == r2High) {
+			return getSuit(r1High, r1.getCards()) > getSuit(r2High, r2.getCards());
+		}
+		return r1High > r2High;
 	}
 
+	private static int getSuit(int rank, List<Card> cards) {
+		for (Card c : cards) {
+			if (c.getRank().getValue() == rank) {
+				return c.getSuit().getValue();
+			}
+		}
+		return 0;
+	}
+	
 	private static int highestCard(List<Card> cards) {
 		int highest = cards.get(0).getRank().getValue();
 		for (Card c : cards) {

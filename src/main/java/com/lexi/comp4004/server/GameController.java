@@ -195,7 +195,7 @@ public class GameController {
 			p.play(GameUtil.getClientView(getGame(), p));
 		}
 		verifyWinner();
-		return GameUtil.getClientView(getGame(), game.getPlayer(user));
+		return GameUtil.getClientView(getGame(), user);
 	}
 
 	private void verifyWinner() {

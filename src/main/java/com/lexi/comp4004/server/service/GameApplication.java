@@ -70,6 +70,7 @@ public class GameApplication {
 			}
 			return JsonUtil.makeComplexJson(Key.GAME, poker);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return JsonUtil.fail(e);
 		}
 	}
@@ -98,6 +99,7 @@ public class GameApplication {
 			return JsonUtil.makeComplexJson(Key.GAME, poker);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			return JsonUtil.fail(e);
 		}
 	}

@@ -1,5 +1,6 @@
 package com.lexi.comp4004.common.game.strategy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -20,7 +21,7 @@ public class Strategy1 extends Strategy {
 		if (rank >= Ranking.STRAIGHT.getValue()) {
 			AIConnection.sendKeep(poker.getName());
 		} else {
-			List<Card> cards = poker.getHiddenCards();
+			List<Card> cards = new ArrayList<Card>(poker.getHiddenCards());
 			if (rank != Ranking.HIGH_CARD.getValue()) {
 				int dup = GameUtil.getMostCommonRank(cards);
 				ListIterator<Card> iter = cards.listIterator();
