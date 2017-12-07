@@ -16,15 +16,16 @@ public class SetUpUtil {
 
 		game.setMaxNumPlayers(setUpGame.getMaxNumPlayers());
 
-		// if player, set up player
-		if (setUpGame.getPlayerName() != null && !setUpGame.getPlayerName().isEmpty()) {
-			Player p = new Player(setUpGame.getPlayerName());
-			for (Card c : setUpGame.getPlayerCards()) {
-				p.receiveCard(c);
+		for (int i = 0; i < setUpGame.getPlayers().size(); i++) {
+			Player p = new Player(setUpGame.getPlayers().get(i));
+			if (setUpGame.getPlayerCards() != null && !setUpGame.getPlayerCards().isEmpty()) {
+				for (Card c : setUpGame.getPlayerCards().get(i)) {
+					p.receiveCard(c);
+				}
 			}
 			game.addPlayer(p);
 		}
-
+		
 		for (int i = 0; i < setUpGame.getAiPlayers().size(); i++) {
 			int strat = setUpGame.getAiPlayers().get(i);
 			// if ai cards, set up ai cards

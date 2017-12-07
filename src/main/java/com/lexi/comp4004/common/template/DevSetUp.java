@@ -10,15 +10,15 @@ public class DevSetUp extends SetUp implements Serializable {
 
 	private static final long serialVersionUID = 965947400573115615L;
 
-	private String playerName;
-	private List<Card> playerCards = new ArrayList<Card>();
+	private List<String> players = new ArrayList<String>();
+	private List<List<Card>> playerCards = new ArrayList<List<Card>> ();
 	private List<List<Card>> aiCards = new ArrayList<List<Card>>();
 	private List<Card> deck;
 
 	@Override
 	public SetUpPoker setUpGame(SetUpPoker poker) {
 		poker.setMaxNumPlayers(getNumPlayers());
-		poker.setPlayerName(getPlayerName());
+		poker.setPlayers(getPlayers());
 		poker.setPlayerCards(getPlayerCards());
 		poker.setAiPlayers(getAiPlayers());
 		poker.setAiCards(getAiCards());
@@ -26,22 +26,18 @@ public class DevSetUp extends SetUp implements Serializable {
 		return poker;
 	}
 
-	public String getPlayerName() {
-		return playerName;
-	}
-
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
-
-	public List<Card> getPlayerCards() {
+	public List<List<Card>>  getPlayerCards() {
 		return playerCards;
 	}
 
-	public void setPlayerCards(List<Card> playerCards) {
+	public void setPlayerCards(List<List<Card>> playerCards) {
 		this.playerCards = playerCards;
 	}
 
+	public void addPlayerCards(List<Card> cards) {
+		this.playerCards.add(cards);
+	}
+	
 	public List<Card> getDeck() {
 		return deck;
 	}
@@ -60,6 +56,14 @@ public class DevSetUp extends SetUp implements Serializable {
 	
 	public void addAiCards(List<Card> aiCards) {
 		this.aiCards.add(aiCards);
+	}
+
+	public List<String> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<String> players) {
+		this.players = players;
 	}
 
 }

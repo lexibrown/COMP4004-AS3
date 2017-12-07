@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.lexi.comp4004.common.game.util.Config.Key;
+import com.lexi.comp4004.common.template.ClientSetUp;
 import com.lexi.comp4004.common.template.DevSetUp;
 import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.Lobby;
@@ -69,7 +70,7 @@ public class DevApplication {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
 			}
 
-			DevSetUp setup = (DevSetUp) params.get(Key.SETUP);
+			DevSetUp setup = JsonUtil.parse(params.get(Key.SETUP).toString(), DevSetUp.class);
 			if (setup == null) {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid parameters.");
 			}
@@ -78,6 +79,7 @@ public class DevApplication {
 			}
 			return JsonUtil.errorJson(SERVICE + "-5002", "Failed to set up game.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return JsonUtil.fail(e);
 		}
 	}
