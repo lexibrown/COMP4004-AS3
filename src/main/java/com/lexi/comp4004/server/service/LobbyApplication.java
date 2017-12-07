@@ -71,11 +71,10 @@ public class LobbyApplication {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid token.");
 			}
 
-			ClientSetUp setup = (ClientSetUp) params.get(Key.SETUP);
+			ClientSetUp setup = JsonUtil.parse(params.get(Key.SETUP).toString(), ClientSetUp.class);
 			if (setup == null) {
 				return JsonUtil.errorJson(SERVICE + "-3001", "Invalid parameters.");
 			}
-
 			if (Lobby.getInstance().setUpGame(params.get(Key.TOKEN).toString(), setup)) {
 				return JsonUtil.makeMessage("Successfully set up game.");
 			}

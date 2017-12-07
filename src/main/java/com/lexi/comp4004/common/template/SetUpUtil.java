@@ -35,7 +35,7 @@ public class SetUpUtil {
 				ai = new AIPlayer(Variables.COMPUTER + (i + 1), new Strategy2());
 			}
 			// will crash if strat isn't 1 or 2
-			if (setUpGame.getAiCards() != null && !!setUpGame.getAiCards().isEmpty()) {
+			if (setUpGame.getAiCards() != null && !setUpGame.getAiCards().isEmpty()) {
 				for (Card c : setUpGame.getAiCards().get(i)) {
 					ai.receiveCard(c);
 				}

@@ -12,6 +12,7 @@ import com.lexi.comp4004.common.game.data.ClientPoker;
 import com.lexi.comp4004.common.game.data.Opponent;
 import com.lexi.comp4004.common.game.data.Player;
 import com.lexi.comp4004.common.game.data.Result;
+import com.lexi.comp4004.server.util.JsonUtil;
 
 public class GameUtil {
 
@@ -41,7 +42,9 @@ public class GameUtil {
 		if (player.equals(game.getPlayers().get(0))) {
 			client.setFirst(true);
 		}
-		client.setCurrentTurn(game.whoseTurn().getName());
+		if (game.whoseTurn() != null) {
+			client.setCurrentTurn(game.whoseTurn().getName());			
+		}
 		return client;
 	}
 
@@ -70,10 +73,26 @@ public class GameUtil {
 		Result result = new Result();
 		result.setUser(name);
 		result.setCards(cards);
+		
+		try {
+			System.out.println(JsonUtil.stringify(result));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Ranking r = determineHand(cards);
 		result.setOutcome(r.toString());
 		result.setRank(r.getValue());
+
+		try {
+			System.out.println(JsonUtil.stringify(result));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		return result;
 	}
 
@@ -254,7 +273,6 @@ public class GameUtil {
 
 	private static void sortByRank(List<Card> cards) {
 		int i, j, min_j;
-
 		for (i = 0; i < cards.size(); i++) {
 			min_j = i; // Assume i is the minimum
 

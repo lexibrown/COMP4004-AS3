@@ -16,6 +16,10 @@ public class PlayerStrategy extends Strategy {
 		Connection.broadcastEndGame(user, results);
 	}
 
+	public void init(String user) {
+		Connection.broadcastStartGame(user);
+	}
+
 	public String toString() {
 		return "Contracts the player to play their turn.";
 	}

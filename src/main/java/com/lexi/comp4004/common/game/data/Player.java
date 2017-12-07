@@ -89,6 +89,10 @@ public class Player implements Serializable {
 	public void setStrategy(Strategy strategy) {
 		this.strategy = strategy;
 	}
+	
+	public void init() {
+		strategy.init(getName());
+	}
 
 	public void play(ClientPoker poker) {
 		strategy.doStrategy(poker);

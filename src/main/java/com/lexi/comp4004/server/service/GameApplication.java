@@ -47,7 +47,7 @@ public class GameApplication {
 			if (poker == null) {
 				return JsonUtil.errorJson(SERVICE + "-1002", "Failed to retrieve game status.");
 			}
-			return JsonUtil.makeJson(Key.GAME, poker);
+			return JsonUtil.makeComplexJson(Key.GAME, poker);
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
@@ -68,7 +68,7 @@ public class GameApplication {
 			if (poker == null) {
 				return JsonUtil.errorJson(SERVICE + "-2002", "Failed to keep hand.");
 			}
-			return JsonUtil.makeJson(Key.GAME, poker);
+			return JsonUtil.makeComplexJson(Key.GAME, poker);
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}
@@ -89,13 +89,13 @@ public class GameApplication {
 			String user = Lobby.getInstance().getUser(params.get(Key.TOKEN).toString());
 
 			@SuppressWarnings("unchecked")
-			List<Card> cards = (List<Card>) params.get(Key.CARDS);
+			List<Card> cards = (List<Card>) JsonUtil.parseList(params.get(Key.CARDS).toString(), Card.class);
 
 			ClientPoker poker = GameController.getInstance().swapCards(user, cards);
 			if (poker == null) {
 				return JsonUtil.errorJson(SERVICE + "-3002", "Failed to swap hand.");
 			}
-			return JsonUtil.makeJson(Key.GAME, poker);
+			return JsonUtil.makeComplexJson(Key.GAME, poker);
 
 		} catch (Exception e) {
 			return JsonUtil.fail(e);

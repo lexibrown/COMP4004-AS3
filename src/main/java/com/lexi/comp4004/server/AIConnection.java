@@ -61,7 +61,7 @@ public class AIConnection {
 					Map<String, Object> params = new HashMap<String, Object>();
 					params.put(Key.COMP, user);
 					params.put(Key.COMP_TOKEN, constructToken());
-					params.put(Key.CARDS, cards);
+					params.put(Key.CARDS, JsonUtil.stringify(cards));
 
 					target = target.path("/ai/swaphand");
 					sendRequest(JsonUtil.stringify(params));

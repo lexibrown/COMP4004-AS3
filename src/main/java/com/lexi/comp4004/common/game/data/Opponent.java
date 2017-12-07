@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lexi.comp4004.common.game.util.Config;
+
 public class Opponent implements Serializable {
 
 	private static final long serialVersionUID = 410694835369462376L;
@@ -26,7 +28,7 @@ public class Opponent implements Serializable {
 
 	public Opponent(String name, List<Card> cards) {
 		this.name = name;
-		this.numCards = cards.size();
+		this.numCards = Config.MAX_CARDS;
 		this.visibleCards = cards;
 	}
 

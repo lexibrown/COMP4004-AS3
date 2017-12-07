@@ -13,4 +13,8 @@ public abstract class Strategy {
 		// do nothing
 	}
 
+	public void init(String user) {
+		// do nothing
+	}
+
 }

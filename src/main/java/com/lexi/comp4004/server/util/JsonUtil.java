@@ -3,6 +3,7 @@ package com.lexi.comp4004.server.util;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -35,6 +36,14 @@ public class JsonUtil {
 		}
 		JsonParser jp = factory.createParser(json);
 		return jp.readValueAs(objectClass);
+	}
+	
+	public static <O> O parseList(String json, Class<?> objectClass) throws JsonParseException, IOException {
+		if (json == null) {
+			return null;
+		}
+		return objectMapper.readValue(json,
+				objectMapper.getTypeFactory().constructCollectionType(List.class, objectClass));
 	}
 
 	public static String makeMessage(String message) throws Exception {

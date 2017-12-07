@@ -111,10 +111,19 @@ public class GameController {
 		}
 		Collections.reverse(humans);
 		ai.addAll(humans);
+		
+		System.out.println(ai);
+		
 		game.setPlayers(ai);
 
 		game.dealCards();
 
+		System.out.println(game.getPlayers());
+		
+		// so that ai don't play before everyone is updated that game started
+		for (Player p : game.getPlayers()) {
+			p.init();
+		}
 		for (Player p : game.getPlayers()) {
 			p.play(GameUtil.getClientView(getGame(), p));
 		}

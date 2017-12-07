@@ -82,9 +82,8 @@ public class AIApplication {
 			}
 
 			String user = params.get(Key.COMP).toString();
-
 			@SuppressWarnings("unchecked")
-			List<Card> cards = (List<Card>) params.get(Key.CARDS);
+			List<Card> cards = (List<Card>) JsonUtil.parseList(params.get(Key.CARDS).toString(), Card.class);
 
 			ClientPoker poker = GameController.getInstance().swapCards(user, cards);
 			if (poker == null) {

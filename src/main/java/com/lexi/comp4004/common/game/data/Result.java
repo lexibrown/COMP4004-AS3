@@ -58,5 +58,14 @@ public class Result implements Serializable {
 	public void setCards(List<Card> cards) {
 		this.cards = cards;
 	}
+	
+	public String toString() {
+		String str = getUser() + ": " + getOutcome() + "[" + getRank() + "]\n";
+		str += "\tCards: ";
+		for (Card c : getCards()) {
+			str += c.toString() + ", ";
+		}
+		return str;
+	}
 
 }
