@@ -21,6 +21,15 @@ public class TestGameResults {
 
 	List<Player> players = new ArrayList<Player>();
 
+	private boolean equalCards(List<Card> cards1, List<Card> cards2) {
+		for (Card card : cards1) {
+			if (!cards2.contains(card)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	@Test
 	public void testRoyalFlush() {
 		Player p = new Player("test1");
@@ -41,7 +50,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.ROYAL_FLUSH.toString(), r.getOutcome());
 		assertEquals(Ranking.ROYAL_FLUSH.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -64,7 +73,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.STRAIGHT_FLUSH.toString(), r.getOutcome());
 		assertEquals(Ranking.STRAIGHT_FLUSH.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -87,7 +96,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.FOUR_OF_A_KIND.toString(), r.getOutcome());
 		assertEquals(Ranking.FOUR_OF_A_KIND.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -110,7 +119,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.FULL_HOUSE.toString(), r.getOutcome());
 		assertEquals(Ranking.FULL_HOUSE.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -133,7 +142,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.FLUSH.toString(), r.getOutcome());
 		assertEquals(Ranking.FLUSH.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -156,7 +165,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.STRAIGHT.toString(), r.getOutcome());
 		assertEquals(Ranking.STRAIGHT.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -179,7 +188,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.THREE_OF_A_KIND.toString(), r.getOutcome());
 		assertEquals(Ranking.THREE_OF_A_KIND.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -202,7 +211,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.TWO_PAIR.toString(), r.getOutcome());
 		assertEquals(Ranking.TWO_PAIR.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -225,7 +234,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.ONE_PAIR.toString(), r.getOutcome());
 		assertEquals(Ranking.ONE_PAIR.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -248,7 +257,7 @@ public class TestGameResults {
 		assertEquals(p.getName(), r.getUser());
 		assertEquals(Ranking.HIGH_CARD.toString(), r.getOutcome());
 		assertEquals(Ranking.HIGH_CARD.getValue(), r.getRank());
-		assertEquals(p.getCards(), r.getCards());
+		assertTrue(equalCards(p.getCards(), r.getCards()));
 	}
 
 	@Test
@@ -287,20 +296,19 @@ public class TestGameResults {
 		assertEquals(p1.getName(), r1.getUser());
 		assertEquals(Ranking.STRAIGHT_FLUSH.toString(), r1.getOutcome());
 		assertEquals(Ranking.STRAIGHT_FLUSH.getValue(), r1.getRank());
-		assertEquals(p1.getCards(), r1.getCards());
+		assertTrue(equalCards(p1.getCards(), r1.getCards()));
 		
-
 		Result r2 = results.get(1);
 		assertEquals(p2.getName(), r2.getUser());
 		assertEquals(Ranking.FOUR_OF_A_KIND.toString(), r2.getOutcome());
 		assertEquals(Ranking.FOUR_OF_A_KIND.getValue(), r2.getRank());
-		assertEquals(p2.getCards(), r2.getCards());
+		assertTrue(equalCards(p2.getCards(), r2.getCards()));
 		
 		Result r3 = results.get(2);
 		assertEquals(p3.getName(), r3.getUser());
 		assertEquals(Ranking.HIGH_CARD.toString(), r3.getOutcome());
 		assertEquals(Ranking.HIGH_CARD.getValue(), r3.getRank());
-		assertEquals(p3.getCards(), r3.getCards());
+		assertTrue(equalCards(p3.getCards(), r3.getCards()));
 	}
 	
 	@Test
@@ -339,20 +347,19 @@ public class TestGameResults {
 		assertEquals(p3.getName(), r1.getUser());
 		assertEquals(Ranking.FOUR_OF_A_KIND.toString(), r1.getOutcome());
 		assertEquals(Ranking.FOUR_OF_A_KIND.getValue(), r1.getRank());
-		assertEquals(p3.getCards(), r1.getCards());
-		
+		assertTrue(equalCards(p3.getCards(), r1.getCards()));		
 
 		Result r2 = results.get(1);
 		assertEquals(p2.getName(), r2.getUser());
 		assertEquals(Ranking.FOUR_OF_A_KIND.toString(), r2.getOutcome());
 		assertEquals(Ranking.FOUR_OF_A_KIND.getValue(), r2.getRank());
-		assertEquals(p2.getCards(), r2.getCards());
+		assertTrue(equalCards(p2.getCards(), r2.getCards()));
 		
 		Result r3 = results.get(2);
 		assertEquals(p1.getName(), r3.getUser());
 		assertEquals(Ranking.FOUR_OF_A_KIND.toString(), r3.getOutcome());
 		assertEquals(Ranking.FOUR_OF_A_KIND.getValue(), r3.getRank());
-		assertEquals(p1.getCards(), r3.getCards());
+		assertTrue(equalCards(p1.getCards(), r3.getCards()));
 	}
 	
 	@Test
@@ -383,14 +390,13 @@ public class TestGameResults {
 		assertEquals(p2.getName(), r1.getUser());
 		assertEquals(Ranking.STRAIGHT_FLUSH.toString(), r1.getOutcome());
 		assertEquals(Ranking.STRAIGHT_FLUSH.getValue(), r1.getRank());
-		assertEquals(p2.getCards(), r1.getCards());
-		
+		assertTrue(equalCards(p2.getCards(), r1.getCards()));
 
 		Result r2 = results.get(1);
 		assertEquals(p1.getName(), r2.getUser());
 		assertEquals(Ranking.STRAIGHT_FLUSH.toString(), r2.getOutcome());
 		assertEquals(Ranking.STRAIGHT_FLUSH.getValue(), r2.getRank());
-		assertEquals(p1.getCards(), r2.getCards());
+		assertTrue(equalCards(p1.getCards(), r2.getCards()));
 	}
 	
 }

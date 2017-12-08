@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 
 import com.lexi.comp4004.common.game.util.Config.Endpoint;
 
-import selenium.AbstractSeleniumTest;
-
 public class HealthCheckTest extends AbstractSeleniumTest {
 
 	@Test

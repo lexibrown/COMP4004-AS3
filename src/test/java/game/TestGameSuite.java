@@ -1,4 +1,4 @@
-
+package game;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -8,6 +8,6 @@ import game.TestGameObjects;
 import game.TestGameResults;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestGameResults.class, TestGameObjects.class })
-public class TestSuite {
+@SuiteClasses({ TestGameResults.class, TestGameObjects.class, TestSetup.class })
+public class TestGameSuite {
 }

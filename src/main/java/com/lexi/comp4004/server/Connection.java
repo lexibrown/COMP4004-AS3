@@ -73,6 +73,10 @@ public class Connection {
 
 	private static void sendMessage(String user, String message) {
 		try {
+			if (!isConnected(user)) {
+				System.out.println(user + " is not connected.");
+				return;
+			}
 			System.out.println(user + ": " + message);
 			userSessions.get(user).getBasicRemote().sendText(message);
 		} catch (IOException e) {

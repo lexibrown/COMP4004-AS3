@@ -65,5 +65,9 @@ public class DevSetUp extends SetUp implements Serializable {
 	public void setPlayers(List<String> players) {
 		this.players = players;
 	}
+	
+	public void addPlayer(String player) {
+		this.players.add(player);
+	}
 
 }

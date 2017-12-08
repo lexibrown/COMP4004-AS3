@@ -97,11 +97,8 @@ public class DevApplication {
 				return JsonUtil.errorJson(SERVICE + "-5001", "Invalid token.");
 			}
 
-			if (!GameController.getInstance().isGameStarted()) {
-				GameController.getInstance().reset();
-				return JsonUtil.makeMessage("Successfully reset game.");
-			}
-			return JsonUtil.errorJson(SERVICE + "-5003", "Cannot reset game that is in session.");
+			GameController.getInstance().reset();
+			return JsonUtil.makeMessage("Successfully reset game.");
 		} catch (Exception e) {
 			return JsonUtil.fail(e);
 		}

@@ -15,16 +15,6 @@ public class SetUpUtil {
 		SetUpPoker setUpGame = setup.setUpGame(new SetUpPoker());
 
 		game.setMaxNumPlayers(setUpGame.getMaxNumPlayers());
-
-		for (int i = 0; i < setUpGame.getPlayers().size(); i++) {
-			Player p = new Player(setUpGame.getPlayers().get(i));
-			if (setUpGame.getPlayerCards() != null && !setUpGame.getPlayerCards().isEmpty()) {
-				for (Card c : setUpGame.getPlayerCards().get(i)) {
-					p.receiveCard(c);
-				}
-			}
-			game.addPlayer(p);
-		}
 		
 		for (int i = 0; i < setUpGame.getAiPlayers().size(); i++) {
 			int strat = setUpGame.getAiPlayers().get(i);
@@ -44,6 +34,16 @@ public class SetUpUtil {
 			game.addPlayer(ai);
 		}
 
+		for (int i = 0; i < setUpGame.getPlayers().size(); i++) {
+			Player p = new Player(setUpGame.getPlayers().get(i));
+			if (setUpGame.getPlayerCards() != null && !setUpGame.getPlayerCards().isEmpty()) {
+				for (Card c : setUpGame.getPlayerCards().get(i)) {
+					p.receiveCard(c);
+				}
+			}
+			game.addPlayer(p);
+		}
+		
 		if (setUpGame.getDeck() != null && !setUpGame.getDeck().isEmpty()) {
 			Deck deck = new Deck();
 			for (Card c : setUpGame.getDeck()) {

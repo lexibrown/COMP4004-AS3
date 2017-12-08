@@ -12,7 +12,6 @@ import com.lexi.comp4004.common.game.data.ClientPoker;
 import com.lexi.comp4004.common.game.data.Opponent;
 import com.lexi.comp4004.common.game.data.Player;
 import com.lexi.comp4004.common.game.data.Result;
-import com.lexi.comp4004.server.util.JsonUtil;
 
 public class GameUtil {
 
@@ -28,7 +27,7 @@ public class GameUtil {
 		ClientPoker client = new ClientPoker(player.getName(), player.getHiddenCards(), player.getVisibleCards());
 
 		client.setNumCardInDeck(game.getDeck().size());
-		
+
 		for (Player p : game.getPlayers()) {
 			if (p.equals(player)) {
 				continue;
@@ -43,7 +42,7 @@ public class GameUtil {
 			client.setFirst(true);
 		}
 		if (game.whoseTurn() != null) {
-			client.setCurrentTurn(game.whoseTurn().getName());			
+			client.setCurrentTurn(game.whoseTurn().getName());
 		}
 		return client;
 	}
@@ -73,26 +72,11 @@ public class GameUtil {
 		Result result = new Result();
 		result.setUser(name);
 		result.setCards(cards);
-		
-		try {
-			System.out.println(JsonUtil.stringify(result));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		Ranking r = determineHand(cards);
 		result.setOutcome(r.toString());
 		result.setRank(r.getValue());
 
-		try {
-			System.out.println(JsonUtil.stringify(result));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
 		return result;
 	}
 
@@ -343,7 +327,7 @@ public class GameUtil {
 		} else if (r1.getRank() == Ranking.ONE_PAIR.getValue()) {
 			return getMostCommonRank(r1.getCards()) > getMostCommonRank(r2.getCards());
 		}
-		
+
 		int r1High = highestCard(r1.getCards());
 		int r2High = highestCard(r2.getCards());
 		if (r1High == r2High) {
@@ -360,7 +344,7 @@ public class GameUtil {
 		}
 		return 0;
 	}
-	
+
 	private static int highestCard(List<Card> cards) {
 		int highest = cards.get(0).getRank().getValue();
 		for (Card c : cards) {
