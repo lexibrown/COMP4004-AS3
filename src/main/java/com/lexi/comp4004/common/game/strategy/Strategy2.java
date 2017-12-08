@@ -54,7 +54,6 @@ public class Strategy2 extends Strategy {
 							iter.remove();
 						}
 					}
-
 					// two pairs, so remove again
 					if (rank == Ranking.TWO_PAIR.getValue()) {
 						dup = GameUtil.getMostCommonRank(cards);
@@ -74,6 +73,9 @@ public class Strategy2 extends Strategy {
 	}
 
 	private void doStrategy1(ClientPoker poker) {
+		if (!poker.isTurn()) {
+			return;
+		}
 		int rank = GameUtil.determineResults(poker.getName(), poker.getCards()).getRank();
 		if (rank >= Ranking.STRAIGHT.getValue()) {
 			AIConnection.sendKeep(poker.getName());

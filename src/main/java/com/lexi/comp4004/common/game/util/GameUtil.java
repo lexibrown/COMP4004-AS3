@@ -3,7 +3,9 @@ package com.lexi.comp4004.common.game.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.lexi.comp4004.common.game.Poker;
 import com.lexi.comp4004.common.game.data.Card;
@@ -28,7 +30,7 @@ public class GameUtil {
 
 		client.setNumCardInDeck(game.getDeck().size());
 
-		for (int i = 0; i < game.getMaxNumPlayers(); i++) {
+		for (int i = 0; i < game.getPlayers().size(); i++) {
 			Player p = game.getPlayers().get(i);
 			if (p.equals(player)) {
 				continue;
@@ -376,27 +378,48 @@ public class GameUtil {
 	}
 
 	public static int getMostCommonRank(List<Card> cards) {
-		int count = 1, tempCount;
-		int popular = cards.get(0).getRank().getValue();
-		int temp = 0;
-		for (int i = 0; i < cards.size() - 1; i++) {
-			temp = cards.get(i).getRank().getValue();
-			tempCount = 0;
-			for (int j = 1; j < cards.size(); j++) {
-				if (temp == cards.get(j).getRank().getValue())
-					tempCount++;
-			}
-			if (tempCount > count) {
-				popular = temp;
-				count = tempCount;
-			} else if (tempCount == count) {
-				if (temp > popular) {
-					popular = temp;
-					count = tempCount;
-				}
-			}
-		}
-		return popular;
+	    Map<Integer, Integer> m = new HashMap<Integer, Integer>();
+
+	    for (Card c : cards) {
+	        Integer freq = m.get(c.getRank().getValue());
+	        m.put(c.getRank().getValue(), (freq == null) ? 1 : freq + 1);
+	    }
+
+	    int max = -1;
+	    int mostFrequent = -1;
+
+	    for (Map.Entry<Integer, Integer> e : m.entrySet()) {
+	        if (e.getValue() > max) {
+	            mostFrequent = e.getKey();
+	            max = e.getValue();
+	        }
+	    }
+
+	    return mostFrequent;
 	}
+	
+//	public static int getMostCommonRank(List<Card> cards) {
+//		int count = 1, tempCount;
+//		int popular = cards.get(0).getRank().getValue();
+//		int temp = 0;
+//		for (int i = 0; i < cards.size() - 1; i++) {
+//			temp = cards.get(i).getRank().getValue();
+//			tempCount = 0;
+//			for (int j = 1; j < cards.size(); j++) {
+//				if (temp == cards.get(j).getRank().getValue())
+//					tempCount++;
+//			}
+//			if (tempCount > count) {
+//				popular = temp;
+//				count = tempCount;
+//			} else if (tempCount == count) {
+//				if (temp > popular) {
+//					popular = temp;
+//					count = tempCount;
+//				}
+//			}
+//		}
+//		return popular;
+//	}
 
 }

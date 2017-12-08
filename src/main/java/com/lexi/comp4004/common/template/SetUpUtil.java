@@ -1,5 +1,8 @@
 package com.lexi.comp4004.common.template;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.lexi.comp4004.common.game.Poker;
 import com.lexi.comp4004.common.game.data.AIPlayer;
 import com.lexi.comp4004.common.game.data.Card;
@@ -46,7 +49,10 @@ public class SetUpUtil {
 		
 		if (setUpGame.getDeck() != null && !setUpGame.getDeck().isEmpty()) {
 			Deck deck = new Deck();
-			for (Card c : setUpGame.getDeck()) {
+			
+			List<Card> cards = setUpGame.getDeck();
+			Collections.reverse(cards);
+			for (Card c : cards) {
 				deck.addCard(c);
 			}
 			game.setDeck(deck);
