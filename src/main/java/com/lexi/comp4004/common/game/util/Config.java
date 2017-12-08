@@ -28,4 +28,37 @@ public class Config {
 		public static final String MESSAGE = "MESSAGE";
 	}
 	
+	public class Endpoint {
+
+		public class Connect {
+			public static final String CONNECT = "/connect";
+		}
+
+		public class Disconnect {
+			public static final String DISCONNECT = "/disconnect";
+		}
+
+		public class Lobby {
+			public static final String STATUS = "/lobby/status";
+			public static final String USERS = "/lobby/users";
+			public static final String SETUPGAME = "/lobby/setupgame";
+			public static final String JOINGAME = "/lobby/joingame";
+			public static final String STARTGAME = "/lobby/startgame";
+		}
+
+		public class Game {
+			public static final String STATUS = "/poker/status";
+			public static final String KEEPHAND = "/poker/keephand";
+			public static final String SWAPHAND = "/poker/swaphand";
+
+		}
+
+		public class Dev {
+			public static final String TEST = "/dev/test";
+			public static final String DEV = "/dev";
+			public static final String RESET = "/dev/reset";
+		}
+
+	}
+	
 }
