@@ -18,19 +18,20 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.lexi.comp4004.server.util.Variables;
 
 public abstract class AbstractSeleniumTest {
-	
+
 	protected static WebDriver driver;
 	protected static String baseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
-	
+
 	@BeforeClass
 	public static void beforeClass() {
+		System.setProperty("webdriver.gecko.driver", "./libs/geckodriver.exe");
 		driver = new FirefoxDriver();
 		baseUrl = Variables.baseUri;
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 	}
-	
+
 	/**
 	 * Setup the Firefox driver
 	 * 
@@ -40,14 +41,14 @@ public abstract class AbstractSeleniumTest {
 	public void setUp() throws Exception {
 		reset();
 	}
-	
+
 	/**
 	 * Call the game's internal reset. Sets the game back to a fresh state.
 	 */
 	protected void reset() {
-		//driver.get(baseUrl + "admin/reset");
+		// driver.get(baseUrl + "admin/reset");
 	}
-	
+
 	/**
 	 * Tear down the Firefox driver, fail the test if any errors occur
 	 * 
@@ -60,12 +61,12 @@ public abstract class AbstractSeleniumTest {
 			fail(verificationErrorString);
 		}
 	}
-	
+
 	@AfterClass
 	public static void afterClass() {
 		driver.quit();
 	}
-	
+
 	protected boolean isElementPresent(By by) {
 		try {
 			driver.findElement(by);
@@ -74,7 +75,7 @@ public abstract class AbstractSeleniumTest {
 			return false;
 		}
 	}
-	
+
 	protected boolean isAlertPresent() {
 		try {
 			driver.switchTo().alert();
@@ -83,7 +84,7 @@ public abstract class AbstractSeleniumTest {
 			return false;
 		}
 	}
-	
+
 	protected String closeAlertAndGetItsText() {
 		try {
 			Alert alert = driver.switchTo().alert();

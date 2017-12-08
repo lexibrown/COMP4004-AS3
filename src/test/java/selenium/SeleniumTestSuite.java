@@ -13,7 +13,6 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.google.common.io.Files;
 
 import selenium.test.ConnectTest;
-import selenium.test.TwoPlayerGameTest;
 
 /**
  * A test suite for the Selenium tests. This class generates a test result file

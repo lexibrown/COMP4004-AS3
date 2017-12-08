@@ -1,29 +1,62 @@
 package selenium.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.lexi.comp4004.common.game.util.Config.Endpoint;
-import com.lexi.comp4004.server.util.Variables;
+import com.lexi.comp4004.common.game.util.Config.Key;
+import com.lexi.comp4004.server.util.JsonUtil;
 
-public class ConnectTest {
+import selenium.AbstractSeleniumTest;
+
+public class ConnectTest extends AbstractSeleniumTest {
+
+	@Test
+	public void testConnect() throws Exception {
+		driver.get(baseUrl + Endpoint.Connect.CONNECT + "?user=test1");
+		
+		WebElement webElement = driver.findElement(By.id("content"));
+		String token = webElement.getText();
+
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = JsonUtil.parse(token, Map.class);
+		
+		assertTrue(map.containsKey(Key.TOKEN));
+		assertNotNull(map.get(Key.TOKEN));
+	}	
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testUsernameInUse() throws Exception {
+		driver.get(baseUrl + Endpoint.Connect.CONNECT + "?user=test2");
+		WebElement webElement = driver.findElement(By.id("content"));
+		String token = webElement.getText();
+
+		Map<String, Object> map = JsonUtil.parse(token, Map.class);
+		assertTrue(map.containsKey(Key.TOKEN));
+		assertNotNull(map.get(Key.TOKEN));
+
+		driver.get(baseUrl + Endpoint.Connect.CONNECT + "?user=test2");
+		webElement = driver.findElement(By.id("content"));
+		String error = webElement.getText();
+
+		System.out.println(error);
+		
+		map = JsonUtil.parse(error, Map.class);
+		assertTrue(map.containsKey(Key.ERROR));
+		assertTrue(map.containsKey(Key.MESSAGE));
+		assertNotNull(map.get(Key.ERROR));
+		
+	}	
+	
+	
+	/*
+
 	
 	private WebDriver driver;
 	private String baseUrl;
@@ -41,18 +74,20 @@ public class ConnectTest {
 		driver.close();
 		driver.quit();
 	}
-
 	@Test
 	public void test() throws ClientProtocolException, IOException {
-		driver.get(baseUrl);
-		driver.navigate().to(Variables.baseUri + Endpoint.Connect.CONNECT + "?user=test1");
-		WebElement webElement = driver.findElement(By.tagName("token"));
-		WeatherApiResponse weatherApiResponse = new WeatherApiResponse();
-		String ExpectedString = weatherApiResponse.GetResponse();
-		System.out.println("ExpectedString is: " + ExpectedString);
-		String DisplayedString = webElement.getText();
-		System.out.println("DisplayedString is: " + DisplayedString);
-		assertTrue(DisplayedString.equals(ExpectedString));
+		driver.get(Variables.baseUri + Endpoint.Connect.CONNECT + "?user=test1");
+//		driver.navigate().to(Variables.baseUri + Endpoint.Connect.CONNECT + "?user=test1");
+		WebElement webElement = driver.findElement(By.id("content"));
+		String token = webElement.getText();
+
+		System.out.println(token);
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = JsonUtil.parse(token, Map.class);
+		System.out.println(map);
+		
+		assertTrue(map.containsKey(Key.TOKEN));
+		assertNotNull(map.get(Key.TOKEN));
 	}
 	
 	public class WeatherApiResponse {
@@ -89,5 +124,6 @@ public class ConnectTest {
 
 		}
 	}
+	*/
 	
 }
