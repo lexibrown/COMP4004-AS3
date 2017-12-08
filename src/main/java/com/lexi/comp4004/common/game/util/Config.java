@@ -3,7 +3,14 @@ package com.lexi.comp4004.common.game.util;
 public class Config {
 
 	public static final int MAX_CARDS = 5;
-
+	
+	public static String DEFAULT_HOST = "localhost:8080";
+	public static final String BASE_PATH = "/COMP4004-AS3";
+	
+	public static final String WEB_SOCKET_PATH = "/ws";
+	
+	public static String token;
+	
 	public class Key {
 		public static final String TOKEN = "token";
 		public static final String USER = "user";

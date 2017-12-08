@@ -18,8 +18,11 @@ import com.lexi.comp4004.common.game.data.Card;
 import com.lexi.comp4004.common.game.data.Card.Rank;
 import com.lexi.comp4004.common.game.data.Card.Suit;
 import com.lexi.comp4004.common.game.data.ClientPoker;
+import com.lexi.comp4004.common.game.data.Result;
+import com.lexi.comp4004.common.game.util.Config;
 import com.lexi.comp4004.common.game.util.Config.Endpoint;
 import com.lexi.comp4004.common.game.util.Config.Key;
+import com.lexi.comp4004.common.game.util.GameUtil.Ranking;
 import com.lexi.comp4004.common.template.DevSetUp;
 import com.lexi.comp4004.server.util.JsonUtil;
 import com.lexi.comp4004.server.util.Variables;
@@ -34,6 +37,7 @@ public class TestStrategy1Case1 extends TestStrategyFramework {
 		target = client.target(Variables.baseUri);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testStrategy1Case1() {
 		Map<String, Object> response = null;
@@ -47,6 +51,11 @@ public class TestStrategy1Case1 extends TestStrategyFramework {
 			response = connectRequest(name1);
 			assertTrue(response.containsKey(Key.TOKEN));
 			token1 = response.get(Key.TOKEN).toString();
+			
+			// websocket connect
+			Config.token = token1;
+			TestSocket ts = new TestSocket();
+			ts.connectToWebSocket();
 
 			// get dev token
 			reloadUri();
@@ -100,13 +109,20 @@ public class TestStrategy1Case1 extends TestStrategyFramework {
 			assertEquals(2, poker.getOpponents().get(1).getVisibleCards().size());
 			assertEquals(3, poker.getOpponents().get(2).getVisibleCards().size());
 
-			// TODO get end game results
-			
+			// end game results
+			// wait for results to come in
+			Thread.sleep(Variables.SMALL_DELAY);
+			Map<String, Object> msg = JsonUtil.parse(ts.getMessages().pop(), Map.class);
+			assertTrue(msg.containsKey(Key.RESULTS));
+			verifyResults(name1, (List<Result>) JsonUtil.parseList(msg.get(Key.RESULTS).toString(), Result.class));
 			
 			// reset
 			this.token = token1;
 			reset();
 
+			// disconnect websocket
+			ts.disconnectFromWebSocket();
+			
 			// disconnect
 			reloadUri();
 			target = target.path(Endpoint.Disconnect.DISCONNECT);
@@ -173,6 +189,25 @@ public class TestStrategy1Case1 extends TestStrategyFramework {
 
 		setUp.setDeck(deck);
 		return setUp;
+	}
+	
+	private void verifyResults(String user, List<Result> results) {
+		Result ai1 = results.get(0);
+		assertEquals(Ranking.STRAIGHT.toString(), ai1.getOutcome());
+		assertEquals(Ranking.STRAIGHT.getValue(), ai1.getRank());
+		
+		Result ai2 = results.get(1);
+		assertEquals(Ranking.THREE_OF_A_KIND.toString(), ai2.getOutcome());
+		assertEquals(Ranking.THREE_OF_A_KIND.getValue(), ai2.getRank());
+		
+		Result ai3 = results.get(2);
+		assertEquals(Ranking.ONE_PAIR.toString(), ai3.getOutcome());
+		assertEquals(Ranking.ONE_PAIR.getValue(), ai3.getRank());
+		
+		Result human = results.get(3);
+		assertEquals(user, human.getUser());
+		assertEquals(Ranking.HIGH_CARD.toString(), human.getOutcome());
+		assertEquals(Ranking.HIGH_CARD.getValue(), human.getRank());
 	}
 
 }

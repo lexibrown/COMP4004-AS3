@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.lexi.comp4004.server.util.Variables;
@@ -27,7 +28,9 @@ public abstract class AbstractSeleniumTest {
 	@BeforeClass
 	public static void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", "./libs/geckodriver.exe");
-		driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "./libs/chromedriver.exe");
+		//driver = new FirefoxDriver();
+		driver = new ChromeDriver();
 		baseUrl = Variables.baseUri;
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 	}

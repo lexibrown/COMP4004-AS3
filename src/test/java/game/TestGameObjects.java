@@ -84,9 +84,7 @@ public class TestGameObjects {
 		poker.addPlayer(p);
 		ClientPoker game = GameUtil.getClientView(poker, p);
 		
-		assertEquals(5, game.getCards().size());
-		
-		
+		assertEquals(5, game.getCards().size());	
 	}
 	
 	

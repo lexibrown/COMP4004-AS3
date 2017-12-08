@@ -7,6 +7,7 @@ import java.util.Map;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.lexi.comp4004.common.game.util.Config.Endpoint;
 import com.lexi.comp4004.common.game.util.Config.Key;
@@ -18,7 +19,12 @@ public class ConnectTest extends AbstractSeleniumTest {
 	public void testConnect() throws Exception {
 		driver.get(baseUrl + Endpoint.Connect.CONNECT + "?user=test1");
 
-		WebElement webElement = driver.findElement(By.id("content"));
+		WebElement webElement = null;
+		if (driver.getClass().equals(ChromeDriver.class)) {
+			webElement = driver.findElement(By.tagName("pre"));
+		} else {
+			webElement = driver.findElement(By.id("content"));
+		}
 		String token = webElement.getText();
 
 		@SuppressWarnings("unchecked")
@@ -32,7 +38,12 @@ public class ConnectTest extends AbstractSeleniumTest {
 	@Test
 	public void testUsernameInUse() throws Exception {
 		driver.get(baseUrl + Endpoint.Connect.CONNECT + "?user=test2");
-		WebElement webElement = driver.findElement(By.id("content"));
+		WebElement webElement = null;
+		if (driver.getClass().equals(ChromeDriver.class)) {
+			webElement = driver.findElement(By.tagName("pre"));
+		} else {
+			webElement = driver.findElement(By.id("content"));
+		}
 		String token = webElement.getText();
 
 		Map<String, Object> map = JsonUtil.parse(token, Map.class);
@@ -40,7 +51,11 @@ public class ConnectTest extends AbstractSeleniumTest {
 		assertNotNull(map.get(Key.TOKEN));
 
 		driver.get(baseUrl + Endpoint.Connect.CONNECT + "?user=test2");
-		webElement = driver.findElement(By.id("content"));
+		if (driver.getClass().equals(ChromeDriver.class)) {
+			webElement = driver.findElement(By.tagName("pre"));
+		} else {
+			webElement = driver.findElement(By.id("content"));
+		}
 		String error = webElement.getText();
 
 		System.out.println(error);

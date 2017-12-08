@@ -12,8 +12,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.junit.Test;
-
 import com.lexi.comp4004.common.game.util.Config.Endpoint;
 import com.lexi.comp4004.common.game.util.Config.Key;
 import com.lexi.comp4004.server.util.JsonUtil;
@@ -26,7 +24,6 @@ public class TestStrategyFramework {
 	protected Client client;
 	protected WebTarget target;
 
-	@Test
 	public void reset() {
 		if (token == null || token.isEmpty()) {
 			return;
