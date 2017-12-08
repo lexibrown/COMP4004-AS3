@@ -2,8 +2,8 @@ package com.lexi.comp4004.common.game.util;
 
 public class Config {
 
-	public static final int MAX_CARDS = 5; 
-		
+	public static final int MAX_CARDS = 5;
+
 	public class Key {
 		public static final String TOKEN = "token";
 		public static final String USER = "user";
@@ -27,7 +27,7 @@ public class Config {
 		public static final String ERROR = "ERROR";
 		public static final String MESSAGE = "MESSAGE";
 	}
-	
+
 	public class Endpoint {
 
 		public class Connect {
@@ -39,6 +39,7 @@ public class Config {
 		}
 
 		public class Lobby {
+			public static final String LOBBY = "/lobby";
 			public static final String STATUS = "/lobby/status";
 			public static final String USERS = "/lobby/users";
 			public static final String SETUPGAME = "/lobby/setupgame";
@@ -47,10 +48,10 @@ public class Config {
 		}
 
 		public class Game {
+			public static final String GAME = "/poker";
 			public static final String STATUS = "/poker/status";
 			public static final String KEEPHAND = "/poker/keephand";
 			public static final String SWAPHAND = "/poker/swaphand";
-
 		}
 
 		public class Dev {
@@ -59,6 +60,13 @@ public class Config {
 			public static final String RESET = "/dev/reset";
 		}
 
+		public class AI {
+			public static final String AI = "/ai";
+			public static final String TEST = "/ai/test";
+			public static final String KEEPHAND = "/ai/keephand";
+			public static final String SWAPHAND = "/ai/swaphand";
+		}
+
 	}
-	
+
 }

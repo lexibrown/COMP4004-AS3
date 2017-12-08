@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.lexi.comp4004.common.game.util.Config.Key;
-import com.lexi.comp4004.common.template.ClientSetUp;
 import com.lexi.comp4004.common.template.DevSetUp;
 import com.lexi.comp4004.server.GameController;
 import com.lexi.comp4004.server.Lobby;

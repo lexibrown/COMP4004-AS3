@@ -13,16 +13,17 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.google.common.io.Files;
 
 import selenium.test.ConnectTest;
+import selenium.test.HealthCheckTest;
 
 /**
  * A test suite for the Selenium tests. This class generates a test result file
  * named ResultBJ.txt
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ConnectTest.class })
+@SuiteClasses({ ConnectTest.class, HealthCheckTest.class })
 public class SeleniumTestSuite {
 
-	private static final Class<?>[] CLASSES = { ConnectTest.class };
+	private static final Class<?>[] CLASSES = { ConnectTest.class, HealthCheckTest.class };
 
 	public static void main(String[] args) throws IOException {
 		Result runClasses = JUnitCore.runClasses(CLASSES);

@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.lexi.comp4004.common.game.data.Card;
+import com.lexi.comp4004.common.game.util.Config.Endpoint;
 import com.lexi.comp4004.common.game.util.Config.Key;
 import com.lexi.comp4004.server.util.JsonUtil;
 import com.lexi.comp4004.server.util.TokenUtil;
@@ -40,7 +41,7 @@ public class AIConnection {
 					params.put(Key.COMP, user);
 					params.put(Key.COMP_TOKEN, constructToken());
 
-					target = target.path("/ai/keephand");
+					target = target.path(Endpoint.AI.KEEPHAND);
 					sendRequest(JsonUtil.stringify(params));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +64,7 @@ public class AIConnection {
 					params.put(Key.COMP_TOKEN, constructToken());
 					params.put(Key.CARDS, JsonUtil.stringify(cards));
 
-					target = target.path("/ai/swaphand");
+					target = target.path(Endpoint.AI.SWAPHAND);
 					sendRequest(JsonUtil.stringify(params));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,8 +78,6 @@ public class AIConnection {
 				.post(Entity.entity(input, MediaType.APPLICATION_JSON), Response.class);
 
 		System.out.println(response);
-
-		// System.out.println(response.readEntity(String.class));
 		System.out.println(response.readEntity(Map.class));
 
 		if (response.getStatus() == 200) {
