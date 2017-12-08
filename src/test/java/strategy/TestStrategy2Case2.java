@@ -133,10 +133,10 @@ public class TestStrategy2Case2 extends TestStrategyFramework {
 		ai1.add(new Card(Rank.Six, Suit.Clubs));
 		ai1.add(new Card(Rank.Eight, Suit.Hearts));
 		ai1.add(new Card(Rank.Jack, Suit.Spades));
-		ai1.add(new Card(Rank.Jack, Suit.Hearts));
+		ai1.add(new Card(Rank.Ten, Suit.Hearts));
 
 		List<Card> ai2 = new ArrayList<Card>();
-		ai2.add(new Card(Rank.Ace, Suit.Diamonds));
+		ai2.add(new Card(Rank.Queen, Suit.Diamonds));
 		ai2.add(new Card(Rank.Ace, Suit.Spades));
 		ai2.add(new Card(Rank.Five, Suit.Clubs));
 		ai2.add(new Card(Rank.Six, Suit.Hearts));
@@ -145,9 +145,9 @@ public class TestStrategy2Case2 extends TestStrategyFramework {
 		List<Card> ai3 = new ArrayList<Card>();
 		ai3.add(new Card(Rank.Three, Suit.Hearts));
 		ai3.add(new Card(Rank.Queen, Suit.Clubs));
-		ai3.add(new Card(Rank.Queen, Suit.Hearts));
-		ai3.add(new Card(Rank.Queen, Suit.Spades));
-		ai3.add(new Card(Rank.King, Suit.Hearts));
+		ai3.add(new Card(Rank.Ten, Suit.Diamonds));
+		ai3.add(new Card(Rank.Five, Suit.Spades));
+		ai3.add(new Card(Rank.Five, Suit.Hearts));
 
 		setUp.addAiCards(ai1);
 		setUp.addAiCards(ai2);
@@ -165,15 +165,20 @@ public class TestStrategy2Case2 extends TestStrategyFramework {
 		setUp.addPlayerCards(playerCards);
 		
 		List<Card> deck = new ArrayList<Card>();
-		deck.add(new Card(Rank.Jack, Suit.Clubs));
+		deck.add(new Card(Rank.King, Suit.Hearts));
 		deck.add(new Card(Rank.Three, Suit.Diamonds));
 		deck.add(new Card(Rank.Three, Suit.Hearts));
-		
 		deck.add(new Card(Rank.King, Suit.Spades));
-		deck.add(new Card(Rank.Nine, Suit.Clubs));
-		deck.add(new Card(Rank.Four, Suit.Spades));
+		deck.add(new Card(Rank.King, Suit.Clubs));
 		
-		deck.add(new Card(Rank.Eight, Suit.Spades));
+		deck.add(new Card(Rank.Ace, Suit.Diamonds));
+		deck.add(new Card(Rank.King, Suit.Diamonds));
+		deck.add(new Card(Rank.Queen, Suit.Diamonds));
+		deck.add(new Card(Rank.Jack, Suit.Diamonds));
+		deck.add(new Card(Rank.Ten, Suit.Diamonds));
+		
+		deck.add(new Card(Rank.Four, Suit.Spades));
+		deck.add(new Card(Rank.Two, Suit.Diamonds));
 		deck.add(new Card(Rank.Eight, Suit.Clubs));		
 
 		setUp.setDeck(deck);
