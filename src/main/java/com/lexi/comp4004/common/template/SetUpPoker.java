@@ -35,7 +35,7 @@ public class SetUpPoker {
 		this.maxNumPlayers = maxNumPlayers;
 	}
 
-	public List<List<Card>>  getPlayerCards() {
+	public List<List<Card>> getPlayerCards() {
 		return playerCards;
 	}
 

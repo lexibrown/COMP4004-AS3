@@ -28,7 +28,8 @@ public class GameUtil {
 
 		client.setNumCardInDeck(game.getDeck().size());
 
-		for (Player p : game.getPlayers()) {
+		for (int i = 0; i < game.getMaxNumPlayers(); i++) {
+			Player p = game.getPlayers().get(i);
 			if (p.equals(player)) {
 				continue;
 			}
