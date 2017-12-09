@@ -44,9 +44,9 @@ public class MyLoggingFilter implements ContainerRequestFilter, ContainerRespons
 			log.info("[REQUEST] [{}] (Path: {})", request.getMethod(), request.getUriInfo().getPath());
 		}
 
-		if (isJson(response)) {
-			ContainerResponse cr = (ContainerResponse) response;
-			Object o = cr.getEntity();
+		ContainerResponse cr = (ContainerResponse) response;
+		Object o = cr.getEntity();
+		if (o != null) {
 			log.info("[RESPONSE] {}", o.toString());
 		}
 	}
@@ -54,14 +54,6 @@ public class MyLoggingFilter implements ContainerRequestFilter, ContainerRespons
 	boolean isJson(ContainerRequestContext request) {
 		try {
 			return request.getMediaType().toString().contains("application/json");
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	boolean isJson(ContainerResponseContext response) {
-		try {
-			return response.getMediaType().toString().contains("application/json");
 		} catch (Exception e) {
 			return false;
 		}
