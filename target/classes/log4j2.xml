@@ -1,21 +1,27 @@
-<Configuration>
-	<Appenders>
-		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
-		</Console>
-		<File name="MyFile" fileName="/Users/lexibrown/desktop/mylog.log"
-			immediateFlush="true" append="true">
-			<PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
-		</File>
-	</Appenders>
-	<Loggers>
-		<Logger name="org.apache.log4j.xml" level="all" />
-		<Logger name="log4j2.Log4j2Logger" level="all" />
-		<logger name="com.logging" level="all">
-			<AppenderRef ref="MyFile" />
-		</logger>
-		<root level="error">
-			<appender-ref ref="Console" />
-		</root>
-	</Loggers>
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!-- Don't forget to set system property
+-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+     to make all loggers asynchronous. -->
+ 
+<Configuration status="info">
+  <Appenders>
+    <!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
+    <RollingRandomAccessFile name="RandomAccessFile" fileName="${catalina.base}/logs/server.log" immediateFlush="true" append="true"
+    	filePattern="${catalina.base}/logs/$${date:yyyy-MM-dd}/server-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m %ex%n</Pattern>
+      </PatternLayout>
+      <Policies>
+      	<OnStartupTriggeringPolicy />
+      	<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+      	<SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+    </RollingRandomAccessFile>
+  </Appenders>
+  <Loggers>
+    <Root level="info" includeLocation="false">
+      <AppenderRef ref="RandomAccessFile"/>
+    </Root>
+  </Loggers>
 </Configuration>

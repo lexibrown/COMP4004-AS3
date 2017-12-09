@@ -58,8 +58,6 @@ public class ConnectTest extends AbstractSeleniumTest {
 		}
 		String error = webElement.getText();
 
-		System.out.println(error);
-
 		map = JsonUtil.parse(error, Map.class);
 		assertTrue(map.containsKey(Key.ERROR));
 		assertTrue(map.containsKey(Key.MESSAGE));
