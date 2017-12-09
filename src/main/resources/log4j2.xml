@@ -7,8 +7,8 @@
 <Configuration status="info">
   <Appenders>
     <!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
-    <RollingRandomAccessFile name="RandomAccessFile" fileName="${catalina.base}/logs/server.log" immediateFlush="true" append="true"
-    	filePattern="${catalina.base}/logs/$${date:yyyy-MM-dd}/server-%d{yyyy-MM-dd}-%i.log">
+    <RollingRandomAccessFile name="RandomAccessFile" fileName="${sys:catalina.home}/logs/server.log" immediateFlush="true" append="true"
+    	filePattern="${sys:catalina.home}/logs/$${date:yyyy-MM-dd}/server-%d{yyyy-MM-dd}-%i.log">
       <PatternLayout>
         <Pattern>%d %p %c{1.} [%t] %m %ex%n</Pattern>
       </PatternLayout>

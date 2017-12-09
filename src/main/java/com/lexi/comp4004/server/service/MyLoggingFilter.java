@@ -12,6 +12,7 @@ import javax.ws.rs.ext.Provider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.server.ContainerRequest;
+import org.glassfish.jersey.server.ContainerResponse;
 
 @Provider
 public class MyLoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
@@ -44,10 +45,9 @@ public class MyLoggingFilter implements ContainerRequestFilter, ContainerRespons
 		}
 
 		if (isJson(response)) {
-			ContainerRequest cr = (ContainerRequest) request;
-			cr.bufferEntity();
-			Map<String, Object> json = cr.readEntity(Map.class);
-			log.info("[RESPONSE] {}", json);
+			ContainerResponse cr = (ContainerResponse) response;
+			Object o = cr.getEntity();
+			log.info("[RESPONSE] {}", o.toString());
 		}
 	}
 
